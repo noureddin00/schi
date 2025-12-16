@@ -108,7 +108,6 @@ const CreateExam = (props: Props) => {
                            paragraph: dashboard?.enter_detailed_description || '\u0623\u062f\u062e\u0644 \u0648\u0635\u0641\u0627 \u0645\u0641\u0635\u0644\u0627 \u0644\u0644\u0627\u062e\u062a\u0628\u0627\u0631...',
                            imageCaption: dashboard?.enter_detailed_description || '\u0623\u062f\u062e\u0644 \u0648\u0635\u0641\u0627 \u0645\u0641\u0635\u0644\u0627 \u0644\u0644\u0627\u062e\u062a\u0628\u0627\u0631...',
                         }}
-                        }}
                         contentMinHeight={256}
                         contentMaxHeight={640}
                         initialContent={data.description}
