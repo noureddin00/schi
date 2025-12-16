@@ -1,0 +1,1410 @@
+/*
+ * ========================================
+ * CUSTOM LTR STYLES (English & Left-to-Right Languages)
+ * ========================================
+ * This file contains custom styles for LTR (Left-to-Right) languages like English
+ * Edit this file to customize the appearance for English interface
+ */
+
+/* ========================================
+   0. GLOBAL FONT SIZE - Affects ALL Text
+   ======================================== */
+
+:root {
+    /* Base font size - Change this ONE value to resize ALL text globally 
+     * Default: 100% (16px)
+     * Recommended: 112.5% (18px) for slightly larger text
+     * Large: 125% (20px) for much larger text
+     * Extra Large: 137.5% (22px) for very large text
+     */
+    font-size: 112.5%; /* 18px base - All text is now 12.5% larger */
+}
+
+/* Apply to body and html for better consistency */
+html {
+    font-size: 112.5%; /* 18px base */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 1rem; /* Uses the root font size (18px) */
+    line-height: 1.6; /* Better readability with larger text */
+    background-color: #fafbfc; /* Subtle off-white background */
+}
+
+/* Ensure responsive font sizing on smaller screens */
+@media (max-width: 768px) {
+    :root, html {
+        font-size: 106.25%; /* 17px on tablets - slightly smaller */
+    }
+}
+
+@media (max-width: 640px) {
+    :root, html {
+        font-size: 100%; /* 16px on phones - default size for mobile */
+    }
+}
+
+/* ========================================
+   0.5. MODERN DESIGN SYSTEM - Okaz-inspired
+   ======================================== */
+
+/* Modern Card Styles */
+.modern-card {
+    border-radius: 1.5rem; /* 24px */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: translateY(-4px);
+}
+
+/* Enhanced Section Spacing */
+.section-spacing {
+    padding-top: 5rem; /* 80px */
+    padding-bottom: 5rem;
+}
+
+@media (max-width: 768px) {
+    .section-spacing {
+        padding-top: 3.5rem; /* 56px */
+        padding-bottom: 3.5rem;
+    }
+}
+
+/* Modern Border Radius */
+.rounded-modern {
+    border-radius: 1.5rem; /* 24px */
+}
+
+.rounded-modern-lg {
+    border-radius: 2rem; /* 32px */
+}
+
+/* Modern Shadows */
+.shadow-modern {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.shadow-modern-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-modern-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Gradient Text */
+.gradient-text-blue {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-text-purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Modern Background Colors */
+.bg-modern-light {
+    background-color: #fafbfc;
+}
+
+.bg-modern-white {
+    background-color: #ffffff;
+}
+
+/* Glass Morphism Effect */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Statistics Section Enhancements */
+.success-statistics-section {
+    background: linear-gradient(to bottom, #fafbfc 0%, #ffffff 100%);
+}
+
+.success-statistics-card {
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.success-statistics-card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Hero Section - Modern Clean Professional Design */
+.hero-section {
+    background: linear-gradient(to bottom, #ffffff 0%, #fafbfc 100%);
+    position: relative;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+}
+
+/* Remove padding from hero section */
+.hero-section > div,
+.hero-section .hero-content-wrapper {
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Professional Overlay */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 0.65) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+/* Modern Typography */
+.hero-heading h1 {
+    animation: fadeInUp 0.6s ease-out;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+}
+
+.hero-heading p {
+    animation: fadeInUp 0.8s ease-out;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    line-height: 1.6;
+}
+
+/* Compact Search Bar */
+.hero-search {
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-search input {
+    font-size: 0.875rem;
+    font-weight: 500;
+    height: 50px !important;
+}
+
+.hero-search input:focus {
+    outline: none;
+}
+
+/* Badge Animation */
+.hero-badge {
+    animation: fadeInDown 0.4s ease-out;
+}
+
+.hero-stats {
+    animation: fadeInUp 1.3s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stats Animation */
+.hero-stats {
+    animation: fadeInUp 1.2s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Search Button Modern Hover */
+.hero-search button:hover {
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+/* Responsive Design - Mobile Optimization */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 100vh !important;
+    }
+    
+    .hero-text-content {
+        min-height: 100vh !important;
+        padding: 2rem 1rem !important;
+    }
+    
+    .hero-heading h1 {
+        font-size: 1.5rem !important; /* 24px */
+        line-height: 1.3 !important;
+    }
+    
+    .hero-heading p {
+        font-size: 0.875rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    .hero-search {
+        max-width: 100% !important;
+    }
+    
+    .hero-search input {
+        height: 45px !important;
+        font-size: 0.8125rem !important;
+    }
+    
+    .hero-badge {
+        padding: 0.25rem 0.75rem !important;
+        font-size: 0.7rem !important;
+    }
+}
+
+.hero-badge {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.hero-badge:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.hero-social-proof {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.hero-social-proof:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Category Cards Modern Style */
+.category-card {
+    border-radius: 1.5rem !important;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Course Cards Modern Style - Okaz Inspired */
+.modern-course-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.modern-course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.modern-course-card img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-course-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Course Card Title */
+.modern-course-card h3 {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: #1f2937;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.modern-course-card:hover h3 {
+    color: #3b82f6;
+}
+
+/* Course Card Stats */
+.modern-course-card .course-stats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* Course Card Price */
+.modern-course-card .course-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #3b82f6;
+}
+
+/* Instructor Avatar */
+.modern-course-card .instructor-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #f3f4f6;
+}
+
+/* Course Grid Layout */
+.courses-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .courses-grid-modern {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .modern-course-card:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* Button Modern Enhancements */
+button, .btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover, .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   1. LAYOUT & SPACING
+   ======================================== */
+
+/* Container & Wrapper Adjustments */
+.ltr-container {
+   padding-left: 1.25rem;
+   padding-right: 1.25rem;
+}
+
+/* Text Alignment */
+.ltr-text-align {
+   text-align: left;
+}
+
+/* Sidebar Direction */
+.ltr-sidebar {
+   left: 0;
+   right: auto;
+}
+
+/* Float Adjustments */
+.ltr-float-start {
+   float: left;
+}
+
+.ltr-float-end {
+   float: right;
+}
+
+/* ========================================
+   2. NAVIGATION & MENU
+   ======================================== */
+
+/* Navbar Items */
+.navbar-item {
+   margin-left: 0.5rem;
+}
+
+.navbar-item:first-child {
+   margin-left: 0;
+}
+
+/* Dropdown Menus */
+.dropdown-menu {
+   left: 0;
+   right: auto;
+}
+
+/* Breadcrumbs */
+.breadcrumb-item::after {
+   content: '/';
+   margin-left: 0.5rem;
+   margin-right: 0.5rem;
+}
+
+/* ========================================
+   3. FORMS & INPUTS
+   ======================================== */
+
+/* Form Labels */
+.form-label {
+   text-align: left;
+}
+
+/* Input Icons */
+.input-icon-left {
+   left: 0.75rem;
+   right: auto;
+}
+
+.input-icon-right {
+   right: 0.75rem;
+   left: auto;
+}
+
+/* Input with Icon Padding */
+.input-with-icon-left {
+   padding-left: 2.5rem;
+   padding-right: 0.75rem;
+}
+
+.input-with-icon-right {
+   padding-right: 2.5rem;
+   padding-left: 0.75rem;
+}
+
+/* Checkbox & Radio Labels */
+.checkbox-label,
+.radio-label {
+   margin-left: 0.5rem;
+}
+
+/* ========================================
+   4. BUTTONS & ACTIONS
+   ======================================== */
+
+/* Button Icons */
+.btn-icon-left {
+   margin-right: 0.5rem;
+   margin-left: 0;
+}
+
+.btn-icon-right {
+   margin-left: 0.5rem;
+   margin-right: 0;
+}
+
+/* Action Buttons Group */
+.action-buttons {
+   justify-content: flex-end;
+}
+
+/* ========================================
+   5. CARDS & CONTENT BLOCKS
+   ======================================== */
+
+/* Card Header Actions */
+.card-header-actions {
+   margin-left: auto;
+   margin-right: 0;
+}
+
+/* Card Icon */
+.card-icon {
+   margin-right: 1rem;
+   margin-left: 0;
+}
+
+/* Badge Position */
+.badge-start {
+   left: 0.5rem;
+   right: auto;
+}
+
+.badge-end {
+   right: 0.5rem;
+   left: auto;
+}
+
+/* ========================================
+   6. TABLES
+   ======================================== */
+
+/* Table Cell Alignment */
+.table-cell-start {
+   text-align: left;
+}
+
+.table-cell-end {
+   text-align: right;
+}
+
+/* Table Actions */
+.table-actions {
+   text-align: right;
+}
+
+/* ========================================
+   7. MODALS & DIALOGS
+   ======================================== */
+
+/* Modal Close Button */
+.modal-close {
+   right: 1rem;
+   left: auto;
+}
+
+/* Dialog Actions */
+.dialog-actions {
+   justify-content: flex-end;
+}
+
+/* ========================================
+   8. NOTIFICATIONS & ALERTS
+   ======================================== */
+
+/* Alert Icon */
+.alert-icon {
+   margin-right: 0.75rem;
+   margin-left: 0;
+}
+
+/* Notification Position */
+.notification-container {
+   right: 1rem;
+   left: auto;
+}
+
+/* Toast Close Button */
+.toast-close {
+   right: 0.5rem;
+   left: auto;
+}
+
+/* ========================================
+   9. COURSE PLAYER
+   ======================================== */
+
+/* Lesson Sidebar */
+.lesson-sidebar {
+   right: 0;
+   left: auto;
+   border-left: 1px solid var(--color-border);
+   border-right: none;
+}
+
+/* Video Controls */
+.video-controls {
+   direction: ltr;
+}
+
+/* Progress Bar */
+.progress-bar {
+   direction: ltr;
+}
+
+/* ========================================
+   10. DASHBOARD ELEMENTS
+   ======================================== */
+
+/* Stats Card Icon */
+.stats-icon {
+   margin-right: 1rem;
+   margin-left: 0;
+}
+
+/* Chart Legends */
+.chart-legend {
+   text-align: left;
+}
+
+/* Timeline */
+.timeline-item::before {
+   left: 0;
+   right: auto;
+}
+
+.timeline-content {
+   margin-left: 2rem;
+   margin-right: 0;
+}
+
+/* ========================================
+   11. CUSTOM COMPONENTS
+   ======================================== */
+
+/* Tabs Navigation */
+.tabs-nav {
+   border-bottom: 2px solid var(--color-border);
+}
+
+.tab-trigger {
+   margin-right: 1rem;
+}
+
+.tab-trigger:last-child {
+   margin-right: 0;
+}
+
+/* Accordion Icons */
+.accordion-icon {
+   margin-left: auto;
+   margin-right: 0;
+}
+
+/* Stepper */
+.stepper-item::after {
+   left: 100%;
+   right: auto;
+}
+
+/* ========================================
+   12. PAGINATION
+   ======================================== */
+
+/* Pagination Controls */
+.pagination {
+   justify-content: flex-end;
+}
+
+.pagination-item {
+   margin-left: 0.25rem;
+}
+
+.pagination-item:first-child {
+   margin-left: 0;
+}
+
+/* ========================================
+   13. FILE UPLOAD
+   ======================================== */
+
+/* Upload Area */
+.upload-icon {
+   margin-bottom: 0.5rem;
+}
+
+/* File List Item */
+.file-item-icon {
+   margin-right: 0.75rem;
+   margin-left: 0;
+}
+
+.file-item-remove {
+   margin-left: auto;
+   margin-right: 0;
+}
+
+/* ========================================
+   14. SEARCH & FILTERS
+   ======================================== */
+
+/* Search Input */
+.search-icon {
+   left: 1rem;
+   right: auto;
+}
+
+.search-input {
+   padding-left: 2.75rem;
+   padding-right: 1rem;
+}
+
+/* Filter Tags */
+.filter-tag {
+   margin-right: 0.5rem;
+}
+
+.filter-tag-remove {
+   margin-left: 0.5rem;
+   margin-right: 0;
+}
+
+/* ========================================
+   15. MISC UTILITIES
+   ======================================== */
+
+/* Divider Text */
+.divider-text {
+   padding-left: 0.5rem;
+   padding-right: 0.5rem;
+}
+
+/* Avatar Group */
+.avatar-group .avatar {
+   margin-left: -0.5rem;
+}
+
+.avatar-group .avatar:first-child {
+   margin-left: 0;
+}
+
+/* Tooltip Arrow */
+.tooltip-arrow-left {
+   left: -4px;
+   right: auto;
+}
+
+.tooltip-arrow-right {
+   right: -4px;
+   left: auto;
+}
+
+/* Loading Spinner */
+.spinner {
+   animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+   from {
+      transform: rotate(0deg);
+   }
+   to {
+      transform: rotate(360deg);
+   }
+}
+
+/* ========================================
+   CUSTOM STYLES FOR TAILWIND ELEMENTS
+   ======================================== */
+
+/* ===== HEADER / NAVBAR ===== */
+
+/* Main Header - Glass Effect */
+.fixed.top-0.z-30.w-full {
+   backdrop-filter: blur(12px);
+   background: rgba(255, 255, 255);
+   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+   transition: all 0.3s ease;
+   padding: 5px 0;
+}
+
+/* Dark Mode Header */
+.dark .fixed.top-0.z-30.w-full {
+   background: rgba(20, 20, 20, 0.85);
+   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Navbar Container (sticky state) */
+.container.flex.h-16 {
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Navbar Links Hover Effect */
+/* .fixed.top-0 a { */
+.header-nav-menu a {
+   transition: color 0.2s ease, transform 0.2s ease;
+   font-size: 1em;
+   font-weight: 500;
+   font-family: zain;
+}
+
+/* .fixed.top-0 a:hover { */
+.header-nav-menu a:hover {
+   color: #f8a61f;
+   transform: translateY(-1px);
+}
+
+/* ===== BUTTONS ===== */
+
+/* Primary Buttons - Enhanced Shadow */
+button[class*="bg-primary"] {
+   box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+   transition: all 0.2s ease;
+}
+
+button[class*="bg-primary"]:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 6px 12px rgba(59, 130, 246, 0.35);
+}
+
+button[class*="bg-primary"]:active {
+   transform: translateY(0);
+}
+
+/* Secondary Buttons */
+button[class*="variant-secondary"] {
+   transition: all 0.2s ease;
+}
+
+button[class*="variant-secondary"]:hover {
+   background: var(--color-secondary-light);
+}
+
+/* Outline Buttons */
+button[class*="variant-outline"] {
+   border: 1.5px solid var(--color-border);
+   transition: all 0.2s ease;
+}
+
+button[class*="variant-outline"]:hover {
+   border-color: var(--color-primary);
+   background: var(--color-secondary-lighter);
+}
+
+/* ===== CARDS ===== */
+
+/* Enhanced Card Styles */
+.bg-card,
+.shadow-card {
+   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bg-card:hover,
+.shadow-card:hover {
+   transform: translateY(-2px);
+   box-shadow: var(--card-shadow-hover);
+}
+
+/* ===== FORMS ===== */
+
+/* Universal Input Styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+   outline: none;
+   border-color: var(--color-primary);
+   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Input Error State */
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+   border-color: var(--color-destructive);
+}
+
+/* ===== TABLES ===== */
+
+/* Table Headers */
+table th {
+   font-weight: 600;
+   background: var(--color-muted);
+   border-bottom: 2px solid var(--color-border);
+}
+
+/* Table Rows Hover */
+table tbody tr {
+   transition: background-color 0.15s ease;
+}
+
+table tbody tr:hover {
+   background-color: var(--color-secondary-lighter);
+}
+
+/* Table Cells */
+table td {
+   border-bottom: 1px solid var(--color-border);
+}
+
+/* ===== LINKS ===== */
+
+/* All Links */
+a {
+   transition: color 0.2s ease;
+}
+
+a:hover {
+   color: var(--color-primary);
+}
+
+/* ===== SCROLLBAR (Webkit browsers) ===== */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+   width: 8px;
+   height: 8px;
+}
+
+::-webkit-scrollbar-track {
+   background: var(--color-muted);
+   border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+   background: var(--color-border);
+   border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background: var(--color-primary);
+}
+
+/* ========================================
+   16. RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+   /* Mobile Navigation */
+   .mobile-menu {
+      left: 0;
+      right: auto;
+   }
+
+   /* Mobile Sidebar */
+   .mobile-sidebar {
+      left: -100%;
+      right: auto;
+      transition: left 0.3s ease-in-out;
+   }
+
+   .mobile-sidebar.open {
+      left: 0;
+   }
+}
+
+/* ========================================
+   17. PRINT STYLES
+   ======================================== */
+
+@media print {
+   .print-hide {
+      display: none !important;
+   }
+
+   body {
+      direction: ltr;
+   }
+}
+
+/* Logo styles */
+.app-header img {
+   /* padding: 1px 15px 20px 15px; */
+   padding: 10px 15px 30px 15px;
+}
+
+/* ========================================
+   18. COURSE LISTING PAGE CLASSES
+   ======================================== */
+
+/* Hero Search Section */
+.course-search-hero {
+   position: relative;
+   overflow: hidden;
+   background-image: url('/assets/images/intro/home-1/bg_0.jpg');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+}
+
+.course-search-hero::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: linear-gradient(135deg, var(--primary) 0%, transparent 100%);
+   opacity: 0.15;
+   pointer-events: none;
+}
+
+.course-search-hero::after {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: linear-gradient(to bottom, transparent 0%, var(--background) 100%);
+   opacity: 0.8;
+   pointer-events: none;
+}
+
+/* Large Search Input */
+.course-search-input {
+   border-radius: 50px;
+   padding-left: 1.5rem;
+   padding-right: 3.5rem;
+   font-size: 1rem;
+   border: 2px solid hsl(var(--border));
+   transition: all 0.3s ease;
+}
+
+.course-search-input:focus {
+   border-color: hsl(var(--primary));
+   box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+}
+
+/* Main course listing page container */
+.course-listing-page {
+   min-height: 60vh;
+}
+
+/* Filter sidebar (desktop view) */
+.course-filter-sidebar {
+   position: sticky;
+   top: 6rem;
+   /* Removed max-height and overflow to show all filters */
+}
+
+/* Filter Container */
+.course-filter-container {
+   animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+   from {
+      opacity: 0;
+      transform: translateY(10px);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+/* Main content area */
+.course-content-main {
+   flex: 1;
+   min-width: 0;
+}
+
+/* Course listing header section */
+.course-header {
+   background: hsl(var(--card));
+   border: 1px solid hsl(var(--border));
+   transition: box-shadow 0.3s ease;
+}
+
+.course-header:hover {
+   box-shadow: 0 4px 12px hsl(var(--foreground) / 0.1);
+}
+
+/* Results Count */
+.course-results-count {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+}
+
+/* Header left section (filter button + title) */
+.course-header-left {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+/* View toggle buttons (grid/list) */
+.course-view-toggles {
+   display: flex;
+   gap: 0.5rem;
+   flex-shrink: 0;
+}
+
+/* Course grid/list container */
+.course-grid {
+   animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+/* Course pagination footer */
+.course-pagination {
+   /* Add your custom styles here */
+}
+
+/* ========================================
+   19. EXAM LISTING PAGE CLASSES
+   ======================================== */
+
+/* Hero Search Section */
+.exam-search-hero {
+   position: relative;
+   overflow: hidden;
+   background-image: url('/assets/images/intro/home-1/bg-line.png');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+}
+
+.exam-search-hero::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: linear-gradient(135deg, var(--primary) 0%, transparent 100%);
+   opacity: 0.15;
+   pointer-events: none;
+}
+
+.exam-search-hero::after {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: linear-gradient(to bottom, transparent 0%, var(--background) 100%);
+   opacity: 0.8;
+   pointer-events: none;
+}
+
+/* Large Search Input */
+.exam-search-input {
+   border-radius: 50px;
+   padding-left: 1.5rem;
+   padding-right: 3.5rem;
+   font-size: 1rem;
+   border: 2px solid hsl(var(--border));
+   transition: all 0.3s ease;
+}
+
+.exam-search-input:focus {
+   border-color: hsl(var(--primary));
+   box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+}
+
+/* Main exam listing page container */
+.exam-listing-page {
+   min-height: 60vh;
+}
+
+/* Filter sidebar (desktop view) */
+.exam-filter-sidebar {
+   position: sticky;
+   top: 6rem;
+   /* Removed max-height and overflow to show all filters */
+}
+
+/* Filter Container */
+.exam-filter-container {
+   animation: fadeInUp 0.4s ease;
+}
+
+/* Main content area */
+.exam-content-main {
+   flex: 1;
+   min-width: 0;
+}
+
+/* Exam listing header section */
+.exam-header {
+   background: hsl(var(--card));
+   border: 1px solid hsl(var(--border));
+   transition: box-shadow 0.3s ease;
+}
+
+.exam-header:hover {
+   box-shadow: 0 4px 12px hsl(var(--foreground) / 0.1);
+}
+
+/* Results Count */
+.exam-results-count {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+}
+
+/* Header left section (filter button + title) */
+.exam-header-left {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+/* View toggle buttons (grid/list) */
+.exam-view-toggles {
+   display: flex;
+   gap: 0.5rem;
+   flex-shrink: 0;
+}
+
+/* Exam grid/list container */
+.exam-grid {
+   animation: fadeIn 0.5s ease;
+}
+
+.exam-listing-grid {
+   animation: fadeIn 0.5s ease;
+}
+
+/* Exam pagination footer */
+.exam-pagination {
+   /* Add your custom styles here */
+}
+
+.course-search-hero {
+   margin-top: 1.6em;
+}
+
+/* ========================================
+   Section 20: Header/Navbar Semantic Classes
+   ======================================== */
+
+/* Main header container */
+.app-header {
+   /* Add your custom styles here */
+}
+
+.app-header-container {
+   /* Add your custom styles here */
+}
+
+/* Header sections */
+.header-left-section {
+   /* Add your custom styles here */
+}
+
+.header-right-section {
+   /* Add your custom styles here */
+}
+
+
+/* Logo */
+.header-logo-link {
+   /* Add your custom styles here */
+}
+
+/* Navigation Menu */
+.header-nav-menu {
+   /* Add your custom styles here */
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+   /* Add your custom styles here */
+}
+
+.mobile-menu-panel {
+   /* Add your custom styles here */
+}
+
+.mobile-menu-content {
+   /* Add your custom styles here */
+}
+
+/* Customize Button */
+.header-customize-btn {
+   /* Add your custom styles here */
+}
+
+/* Actions Section */
+.header-actions {
+   /* Add your custom styles here */
+}
+
+.header-actions-desktop {
+   /* Add your custom styles here */
+}
+
+/* Authentication Buttons */
+.header-auth-buttons {
+   /* Add your custom styles here */
+}
+
+.header-signup-btn {
+   /* Add your custom styles here */
+}
+
+.header-login-btn {
+   /* Add your custom styles here */
+}
+
+/* ========================================
+   Section 21: Hero Section Layout
+   ======================================== */
+
+/* Hero content wrapper - controls layout direction */
+.hero-content-wrapper {
+   /* Default LTR layout: text left, image right */
+   /* Add your custom styles here */
+}
+
+/* Hero text content section */
+.hero-text-content {
+   /* Add your custom styles here */
+}
+
+/* Hero image content section */
+.hero-image-content {
+   /* Add your custom styles here */
+}
+
+/* ========================================
+   Section 22: Carousel Navigation
+   ======================================== */
+
+/* Carousel navigation button container */
+.carousel-nav-buttons {
+   /* Add your custom styles here */
+}
+
+/* Carousel previous button */
+.carousel-prev-btn {
+   /* Add your custom styles here */
+}
+
+/* Carousel next button */
+.carousel-next-btn {
+   /* Add your custom styles here */
+}
+
+.header-action-theme{
+   display: none;
+}
+
+.header-action-language{
+
+}
+
+.app-footer-logo{
+
+    height: 110px;
+    text-align: center;
+    margin: auto;
+    padding-bottom: 0;
+}
+
+.course-primary-word{
+   display: none;
+}

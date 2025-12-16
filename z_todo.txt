@@ -1,0 +1,41 @@
+
+1 - fix Logo  upload issus  -> (FIXED)
+
+
+2 - Create richer demo data (full Mentor demo parity: sections, lessons, quizzes, exam categories).
+
+3 - Translation arabic version (multilinguals) + using Arabic fonts + show lang switcher
+
+
+Fix email verification error : (FIXED)
+-------------------------------
+
+when clicking on very email that i receive on my gmail it redirect to this link and page show message "403
+This action is unauthorized."
+
+http://127.0.0.1:8000/verify-email/16/afce395eaf40dc5e7743298b6cdd8cf9728748fe?expires=1765448379&signature=dbfce82994d297161865342ac0b9b92fb222dbefe024711398680cea807ab852
+
+
+
+4-When clicking g update exam question getting error :
+يجب أن يكون حقل options مصفوفة.
+even im entering many options values 
+
+
+5- Homepage customizations :
+---------------------------------
+# hero section -> increase height / automatic full screen height
+# courses section : display 3 courses per column instead of displaying 4 + fix navigation arrow direction (Arabic version)
+# instructor area is empty .. How to display instructors (check Mentor script docucumentation)
+# improve categories section (police seem very large)
+# Blog section -> fix navigation arrow direction for RTL (arabic version)
+
+
+6- Carrers pages translation
+-----------------------------
+
+
+7 - add css class " app-footer-logo " to footer logo + move the payment gateways div (space-y-3) to the left under links 
+
+8 - Fix the customize mode  (FIXED)
+

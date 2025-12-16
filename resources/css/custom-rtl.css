@@ -1,0 +1,930 @@
+/*
+ * ========================================
+ * CUSTOM RTL STYLES (Arabic & Right-to-Left Languages)
+ * ========================================
+ * This file contains custom styles for RTL (Right-to-Left) languages like Arabic
+ * Edit this file to customize the appearance for Arabic interface
+ * 
+ * This file is automatically loaded when language is set to Arabic
+ */
+
+/* ========================================
+   0. GLOBAL FONT SIZE (RTL) - Affects ALL Arabic Text
+   ======================================== */
+
+[dir='rtl'] {
+    /* Base font size for RTL - Same as LTR for consistency 
+     * Adjust this value to resize ALL Arabic text globally
+     */
+    /*font-size: 112.5%;*/ 
+    direction: rtl;
+}
+
+/* Apply to body when in RTL mode */
+[dir='rtl'] body {
+    font-size: 1rem; /* Uses the root font size (18px) */
+    line-height: 1.7; /* Slightly taller for Arabic script readability */
+}
+
+[dir='rtl'] body * {
+    direction: rtl;
+    /* text-align: right; */
+}
+
+/* Responsive font sizing for RTL */
+@media (max-width: 768px) {
+    [dir='rtl'] {
+        font-size: 106.25%; /* 17px on tablets */
+    }
+}
+
+@media (max-width: 640px) {
+    [dir='rtl'] {
+        font-size: 100%; /* 16px on phones */
+    }
+}
+
+/* ========================================
+   1. LAYOUT & SPACING
+   ======================================== */
+
+/* Course Hero Title - RTL Word Order */
+[dir='rtl'] .course-hero-title {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+[dir='rtl'] .course-primary-word {
+    order: 1;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+[dir='rtl'] .course-secondary-word {
+    order: 2;
+    font-weight: 800;
+}
+
+/* Course Search Input - RTL Styling */
+[dir='rtl'] .course-search-input {
+    text-align: right;
+    padding-right: 4rem !important;
+    padding-left: 1rem !important;
+}
+
+[dir='rtl'] .course-search-input::placeholder {
+    text-align: right;
+}
+
+/* Hero Section - Reverse Layout for RTL */
+[dir='rtl'] .hero-content-wrapper {
+   flex-direction: row-reverse !important;
+}
+
+/* Ensure proper spacing in RTL */
+[dir='rtl'] .hero-text-content {
+   /* Add your custom RTL text content styles here */
+}
+
+[dir='rtl'] .hero-image-content {
+   /* Add your custom RTL image content styles here */
+}
+
+/* Carousel RTL Direction - Slide from left to right */
+[dir='rtl'] .embla__container {
+   direction: ltr !important;
+}
+
+[dir='rtl'] .embla__slide {
+   direction: rtl !important;
+}
+
+/* Carousel Navigation Buttons - Swap arrows in RTL */
+[dir='rtl'] .carousel-nav-buttons {
+   flex-direction: row-reverse;
+}
+
+/* Swap the button order visually by reversing flex */
+[dir='rtl'] .carousel-prev-btn {
+   order: 2;
+}
+
+[dir='rtl'] .carousel-next-btn {
+   order: 1;
+}
+
+/* Container & Wrapper Adjustments */
+[dir='rtl'] .container,
+[dir='rtl'] .rtl-container {
+   padding-right: 1.25rem;
+   padding-left: 1.25rem;
+}
+
+/* Text Alignment */
+[dir='rtl'] .rtl-text-align,
+[dir='rtl'] p,
+[dir='rtl'] h1,
+[dir='rtl'] h2,
+[dir='rtl'] h3,
+[dir='rtl'] h4,
+[dir='rtl'] h5,
+[dir='rtl'] h6 {
+   /* text-align: right; */
+}
+
+/* Sidebar Direction */
+[dir='rtl'] .sidebar,
+[dir='rtl'] .rtl-sidebar {
+   right: 0;
+   left: auto;
+}
+
+/* Float Adjustments */
+[dir='rtl'] .float-start {
+   float: right !important;
+}
+
+[dir='rtl'] .float-end {
+   float: left !important;
+}
+
+/* ========================================
+   2. NAVIGATION & MENU
+   ======================================== */
+
+/* Navbar Items */
+[dir='rtl'] .navbar-item {
+   margin-right: 0.5rem;
+   margin-left: 0;
+}
+
+[dir='rtl'] .navbar-item:first-child {
+   margin-right: 0;
+}
+
+/* Dropdown Menus */
+[dir='rtl'] .dropdown-menu {
+   right: 0;
+   left: auto;
+}
+
+/* Breadcrumbs */
+[dir='rtl'] .breadcrumb-item::after {
+   content: '\\';
+   margin-right: 0.5rem;
+   margin-left: 0.5rem;
+}
+
+/* Sidebar Navigation */
+[dir='rtl'] .nav-item {
+   padding-right: 1rem;
+   padding-left: 0.5rem;
+}
+
+/* Sidebar Icons */
+[dir='rtl'] .nav-icon {
+   margin-left: 0.75rem;
+   margin-right: 0;
+}
+
+/* Sidebar Chevron */
+[dir='rtl'] .nav-chevron {
+   margin-right: auto;
+   margin-left: 0;
+   transform: rotate(180deg);
+}
+
+/* ========================================
+   3. FORMS & INPUTS
+   ======================================== */
+
+/* Form Labels */
+[dir='rtl'] .form-label {
+   text-align: right;
+}
+
+/* Input Icons */
+[dir='rtl'] .input-icon-left {
+   right: 0.75rem;
+   left: auto;
+}
+
+[dir='rtl'] .input-icon-right {
+   left: 0.75rem;
+   right: auto;
+}
+
+/* Input with Icon Padding */
+[dir='rtl'] .input-with-icon-left {
+   padding-right: 2.5rem;
+   padding-left: 0.75rem;
+}
+
+[dir='rtl'] .input-with-icon-right {
+   padding-left: 2.5rem;
+   padding-right: 0.75rem;
+}
+
+/* Checkbox & Radio Labels */
+[dir='rtl'] .checkbox-label,
+[dir='rtl'] .radio-label {
+   margin-right: 0.5rem;
+   margin-left: 0;
+}
+
+/* Select Arrow */
+[dir='rtl'] select {
+   background-position: left 0.75rem center;
+   padding-left: 2.5rem;
+   padding-right: 0.75rem;
+}
+
+/* ========================================
+   4. BUTTONS & ACTIONS
+   ======================================== */
+
+/* Button Icons */
+[dir='rtl'] .btn-icon-left {
+   margin-left: 0.5rem;
+   margin-right: 0;
+}
+
+[dir='rtl'] .btn-icon-right {
+   margin-right: 0.5rem;
+   margin-left: 0;
+}
+
+/* Action Buttons Group */
+[dir='rtl'] .action-buttons {
+   justify-content: flex-start;
+}
+
+/* Button Group */
+[dir='rtl'] .btn-group > button:first-child {
+   border-top-right-radius: 0.375rem;
+   border-bottom-right-radius: 0.375rem;
+   border-top-left-radius: 0;
+   border-bottom-left-radius: 0;
+}
+
+[dir='rtl'] .btn-group > button:last-child {
+   border-top-left-radius: 0.375rem;
+   border-bottom-left-radius: 0.375rem;
+   border-top-right-radius: 0;
+   border-bottom-right-radius: 0;
+}
+
+/* ========================================
+   5. CARDS & CONTENT BLOCKS
+   ======================================== */
+
+/* Card Header Actions */
+[dir='rtl'] .card-header-actions {
+   margin-right: auto;
+   margin-left: 0;
+}
+
+/* Card Icon */
+[dir='rtl'] .card-icon {
+   margin-left: 1rem;
+   margin-right: 0;
+}
+
+/* Badge Position */
+[dir='rtl'] .badge-start {
+   right: 0.5rem;
+   left: auto;
+}
+
+[dir='rtl'] .badge-end {
+   left: 0.5rem;
+   right: auto;
+}
+
+/* Card Title with Icon */
+[dir='rtl'] .card-title svg {
+   margin-left: 0.5rem;
+   margin-right: 0;
+}
+
+/* ========================================
+   6. TABLES
+   ======================================== */
+
+/* Table Cell Alignment */
+[dir='rtl'] .table-cell-start {
+   text-align: right;
+}
+
+[dir='rtl'] .table-cell-end {
+   text-align: left;
+}
+
+/* Table Actions */
+[dir='rtl'] .table-actions {
+   text-align: left;
+}
+
+/* Table Header */
+[dir='rtl'] th {
+   text-align: right;
+}
+
+/* Table Sort Icon */
+[dir='rtl'] .sort-icon {
+   margin-right: 0.25rem;
+   margin-left: 0;
+}
+
+/* ========================================
+   7. MODALS & DIALOGS
+   ======================================== */
+
+/* Modal Close Button */
+[dir='rtl'] .modal-close {
+   left: 1rem;
+   right: auto;
+}
+
+/* Dialog Actions */
+[dir='rtl'] .dialog-actions {
+   justify-content: flex-start;
+}
+
+/* Dialog Header */
+[dir='rtl'] .dialog-header {
+   text-align: right;
+}
+
+/* ========================================
+   8. NOTIFICATIONS & ALERTS
+   ======================================== */
+
+/* Alert Icon */
+[dir='rtl'] .alert-icon {
+   margin-left: 0.75rem;
+   margin-right: 0;
+}
+
+/* Notification Position */
+[dir='rtl'] .notification-container {
+   left: 1rem;
+   right: auto;
+}
+
+/* Toast Close Button */
+[dir='rtl'] .toast-close {
+   left: 0.5rem;
+   right: auto;
+}
+
+/* Alert Content */
+[dir='rtl'] .alert {
+   text-align: right;
+}
+
+/* ========================================
+   9. COURSE PLAYER
+   ======================================== */
+
+/* Lesson Sidebar */
+[dir='rtl'] .lesson-sidebar {
+   left: 0;
+   right: auto;
+   border-right: 1px solid var(--color-border);
+   border-left: none;
+}
+
+/* Video Controls - Keep LTR for universal understanding */
+[dir='rtl'] .video-controls {
+   direction: ltr;
+}
+
+/* Progress Bar - Keep LTR for consistency */
+[dir='rtl'] .progress-bar {
+   direction: ltr;
+}
+
+/* Lesson Navigation */
+[dir='rtl'] .lesson-nav-prev {
+   left: 1rem;
+   right: auto;
+}
+
+[dir='rtl'] .lesson-nav-next {
+   right: 1rem;
+   left: auto;
+}
+
+/* ========================================
+   10. DASHBOARD ELEMENTS
+   ======================================== */
+
+/* Stats Card Icon */
+[dir='rtl'] .stats-icon {
+   margin-left: 1rem;
+   margin-right: 0;
+}
+
+/* Chart Legends */
+[dir='rtl'] .chart-legend {
+   text-align: right;
+}
+
+/* Timeline */
+[dir='rtl'] .timeline-item::before {
+   right: 0;
+   left: auto;
+}
+
+[dir='rtl'] .timeline-content {
+   margin-right: 2rem;
+   margin-left: 0;
+}
+
+/* Dashboard Widgets */
+[dir='rtl'] .widget-header {
+   text-align: right;
+}
+
+/* ========================================
+   11. CUSTOM COMPONENTS
+   ======================================== */
+
+/* Tabs Navigation */
+[dir='rtl'] .tab-trigger {
+   margin-left: 1rem;
+   margin-right: 0;
+}
+
+[dir='rtl'] .tab-trigger:last-child {
+   margin-left: 0;
+}
+
+/* Vertical Tabs Border */
+[dir='rtl'] .vertical-tabs-trigger::before {
+   left: auto;
+   right: 0;
+}
+
+/* Horizontal Tabs Border */
+[dir='rtl'] .horizontal-tabs-trigger::before {
+   right: 0;
+   left: auto;
+   border-radius: 0 0.75rem 0.75rem 0;
+}
+
+/* Accordion Icons */
+[dir='rtl'] .accordion-icon {
+   margin-right: auto;
+   margin-left: 0;
+}
+
+/* Stepper */
+[dir='rtl'] .stepper-item::after {
+   right: 100%;
+   left: auto;
+}
+
+/* Collapsible Trigger */
+[dir='rtl'] .collapsible-trigger svg {
+   margin-right: auto;
+   margin-left: 0;
+}
+
+/* ========================================
+   12. PAGINATION
+   ======================================== */
+
+/* Pagination Controls */
+[dir='rtl'] .pagination {
+   justify-content: flex-start;
+}
+
+[dir='rtl'] .pagination-item {
+   margin-right: 0.25rem;
+   margin-left: 0;
+}
+
+[dir='rtl'] .pagination-item:first-child {
+   margin-right: 0;
+}
+
+/* Pagination Arrows */
+[dir='rtl'] .pagination-prev svg,
+[dir='rtl'] .pagination-next svg {
+   transform: rotate(180deg);
+}
+
+/* ========================================
+   13. FILE UPLOAD
+   ======================================== */
+
+/* Upload Area */
+[dir='rtl'] .upload-area {
+   text-align: center;
+}
+
+/* File List Item */
+[dir='rtl'] .file-item-icon {
+   margin-left: 0.75rem;
+   margin-right: 0;
+}
+
+[dir='rtl'] .file-item-remove {
+   margin-right: auto;
+   margin-left: 0;
+}
+
+/* File Progress */
+[dir='rtl'] .file-progress {
+   direction: ltr;
+}
+
+/* ========================================
+   14. SEARCH & FILTERS
+   ======================================== */
+
+/* Search Input */
+[dir='rtl'] .search-icon {
+   right: 1rem;
+   left: auto;
+}
+
+[dir='rtl'] .search-input {
+   padding-right: 2.75rem;
+   padding-left: 1rem;
+}
+
+/* Search Clear Button */
+[dir='rtl'] .search-clear {
+   left: 1rem;
+   right: auto;
+}
+
+/* Filter Tags */
+[dir='rtl'] .filter-tag {
+   margin-left: 0.5rem;
+   margin-right: 0;
+}
+
+[dir='rtl'] .filter-tag-remove {
+   margin-right: 0.5rem;
+   margin-left: 0;
+}
+
+/* ========================================
+   15. ARABIC TYPOGRAPHY
+   ======================================== */
+
+/* Arabic Font Optimization */
+[dir='rtl'] body,
+[dir='rtl'] input,
+[dir='rtl'] textarea,
+[dir='rtl'] select,
+[dir='rtl'] button {
+   font-family: 'Tajawal', 'Cairo', 'Almarai', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont,
+      'Segoe UI', Roboto, sans-serif;
+}
+
+/* Arabic Headings */
+/* [dir='rtl'] h1,
+[dir='rtl'] h2,
+[dir='rtl'] h3,
+[dir='rtl'] h4,
+[dir='rtl'] h5,
+[dir='rtl'] h6 {
+   font-weight: 700;
+   letter-spacing: normal;
+} */
+
+/* Arabic Paragraph Spacing */
+[dir='rtl'] p {
+   line-height: 1.8;
+   word-spacing: 0.05em;
+}
+
+/* Numbers should stay LTR */
+[dir='rtl'] .number,
+[dir='rtl'] .price,
+[dir='rtl'] .date,
+[dir='rtl'] .time {
+   direction: ltr;
+   display: inline-block;
+}
+
+/* ========================================
+   16. MISC UTILITIES
+   ======================================== */
+
+/* Divider Text */
+[dir='rtl'] .divider-text {
+   padding-right: 0.5rem;
+   padding-left: 0.5rem;
+}
+
+/* Avatar Group */
+[dir='rtl'] .avatar-group .avatar {
+   margin-right: -0.5rem;
+   margin-left: 0;
+}
+
+[dir='rtl'] .avatar-group .avatar:first-child {
+   margin-right: 0;
+}
+
+/* Tooltip Arrow */
+[dir='rtl'] .tooltip-arrow-left {
+   right: -4px;
+   left: auto;
+}
+
+[dir='rtl'] .tooltip-arrow-right {
+   left: -4px;
+   right: auto;
+}
+
+/* Loading Spinner - Keep same rotation */
+[dir='rtl'] .spinner {
+   animation: spin 1s linear infinite;
+}
+
+/* Scroll Behavior */
+[dir='rtl'] .scroll-container {
+   direction: rtl;
+}
+
+/* ========================================
+   17. SIDEBAR SPECIFIC (Dashboard)
+   ======================================== */
+
+/* Sidebar Group Label */
+[dir='rtl'] .sidebar-group-label {
+   text-align: right;
+   padding-right: 1rem;
+   padding-left: 0;
+}
+
+/* Sidebar Menu Item */
+[dir='rtl'] .sidebar-menu-item {
+   text-align: right;
+}
+
+/* Sidebar Badge */
+[dir='rtl'] .sidebar-badge {
+   margin-right: 0;
+   margin-left: auto;
+}
+
+/* Sidebar Collapse Icon */
+[dir='rtl'] .sidebar-collapse-icon {
+   margin-right: 0;
+   margin-left: auto;
+}
+
+/* ========================================
+   18. RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+   /* Mobile Navigation */
+   [dir='rtl'] .mobile-menu {
+      right: 0;
+      left: auto;
+   }
+
+   /* Mobile Sidebar */
+   [dir='rtl'] .mobile-sidebar {
+      right: -100%;
+      left: auto;
+      transition: right 0.3s ease-in-out;
+   }
+
+   [dir='rtl'] .mobile-sidebar.open {
+      right: 0;
+   }
+
+   /* Mobile Menu Toggle */
+   [dir='rtl'] .menu-toggle {
+      left: 1rem;
+      right: auto;
+   }
+}
+
+/* ========================================
+   19. PRINT STYLES
+   ======================================== */
+
+@media print {
+   [dir='rtl'] body {
+      direction: rtl;
+      text-align: right;
+   }
+
+   [dir='rtl'] .print-hide {
+      display: none !important;
+   }
+}
+
+/* ========================================
+   20. EXAM & QUIZ SPECIFIC
+   ======================================== */
+
+/* Question Number */
+[dir='rtl'] .question-number {
+   margin-left: 0.5rem;
+   margin-right: 0;
+}
+
+/* Answer Options */
+[dir='rtl'] .answer-option {
+   text-align: right;
+   padding-right: 1rem;
+   padding-left: 0.5rem;
+}
+
+/* Exam Timer */
+[dir='rtl'] .exam-timer {
+   left: 1rem;
+   right: auto;
+}
+
+/* Question Navigator */
+[dir='rtl'] .question-nav {
+   direction: rtl;
+}
+
+/* ========================================
+   21. CERTIFICATE & DOCUMENTS
+   ======================================== */
+
+/* Certificate Content - Keep centered */
+[dir='rtl'] .certificate-content {
+   text-align: center;
+   direction: rtl;
+}
+
+/* Document Title */
+[dir='rtl'] .document-title {
+   text-align: center;
+}
+
+/* ========================================
+   22. RICH TEXT EDITOR (Richtor/TinyMCE)
+   ======================================== */
+
+/* Editor Toolbar */
+[dir='rtl'] .richtor-toolbar,
+[dir='rtl'] .tox-toolbar {
+   direction: rtl;
+}
+
+/* Editor Content */
+[dir='rtl'] .richtor-content,
+[dir='rtl'] .tox-edit-area {
+   direction: rtl;
+   text-align: right;
+}
+
+/* ========================================
+   23. CUSTOM STYLES FOR TAILWIND ELEMENTS (RTL)
+   ======================================== */
+
+/* Header / Navbar - RTL */
+[dir='rtl'] .fixed.top-0.z-30.w-full {
+   /* RTL header inherits LTR styles, add overrides if needed */
+}
+
+/* Navbar Container - RTL */
+[dir='rtl'] .container.flex.h-16 {
+   /* RTL navbar styles */
+}
+
+/* Navbar Links - RTL */
+[dir='rtl'] .fixed.top-0 a:hover {
+   transform: translateY(-1px);
+}
+
+/* Table Headers - RTL */
+[dir='rtl'] table th {
+   text-align: right;
+}
+
+/* Table Cells - RTL */
+[dir='rtl'] table td {
+   text-align: right;
+}
+
+/* ========================================
+   18. COURSE LISTING PAGE CLASSES (RTL)
+   ======================================== */
+
+/* Hero Search Section RTL */
+[dir='rtl'] .course-search-hero {
+   direction: rtl;
+}
+
+/* Large Search Input RTL */
+[dir='rtl'] .course-search-input {
+   padding-left: 3.5rem;
+   padding-right: 1.5rem;
+   text-align: right;
+}
+
+/* Main course listing page container */
+[dir='rtl'] .course-listing-page {
+   direction: rtl;
+}
+
+/* Filter sidebar (desktop view) */
+[dir='rtl'] .course-filter-sidebar {
+   direction: rtl;
+   text-align: right;
+}
+
+[dir='rtl'] .course-filter-sidebar * {
+   direction: rtl;
+   text-align: right;   
+}
+
+[dir='rtl'] .course-filter-sidebar label {
+   padding: 0 10px 0 0;
+}
+
+/* Main content area */
+[dir='rtl'] .course-content-main {
+   direction: rtl;
+}
+
+/* Course listing header section */
+[dir='rtl'] .course-header {
+   direction: rtl;
+}
+
+/* Header left section (filter button + title) - actually right in RTL */
+[dir='rtl'] .course-header-left {
+   flex-direction: row-reverse;
+}
+
+/* Results Count RTL */
+[dir='rtl'] .course-results-count {
+   text-align: right;
+}
+
+/* View toggle buttons (grid/list) */
+[dir='rtl'] .course-view-toggles {
+   flex-direction: row-reverse;
+}
+
+/* Course grid/list container */
+[dir='rtl'] .course-grid {
+   direction: rtl;
+}
+
+/* Course Card RTL adjustments */
+[dir='rtl'] .course-card {
+   text-align: right;
+}
+
+/* Badge positioning for RTL */
+[dir='rtl'] .absolute.top-3.left-3 {
+   left: auto;
+   right: 0.75rem;
+}
+
+[dir='rtl'] .absolute.top-3.right-3 {
+   right: auto;
+   left: 0.75rem;
+}
+
+/* Course pagination footer */
+[dir='rtl'] .course-pagination {
+   /* Add your custom RTL styles here */
+}
+
+/* .left-0{
+    right: calc(var(--spacing) * 0);
+    left: inherit;
+}
+
+.right-0{
+    left: calc(var(--spacing) * 0);
+    right: inherit;
+} */
+
+.header-right-section  a {
+   font-size: 0.9em;
+}
+
+.category-card__header h3{
+    font-size: 1.6em;
+    padding-bottom: 15px;
+}
+
+.top-categories-section__subtitle{
+   margin-bottom: 0;
+}
