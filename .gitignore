@@ -1,7 +1,7 @@
 /.phpunit.cache
 /bootstrap/ssr
 /node_modules
-/public/build
+# /public/build  # Uncommented for shared hosting - commit compiled assets
 /public/hot
 /public/storage
 /storage/*.key
