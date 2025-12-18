@@ -338,3 +338,38 @@ Mentor LMS offers a robust platform for creating, managing, and selling online c
 - Customize platform appearance with navbar/footer management
 - Perform system maintenance, backups, and updates
 - Access comprehensive analytics and reporting tools
+
+## Production Deployment
+
+- Environment:
+   - Set `APP_URL` to your full domain (include subfolder if used), e.g. https://example.com/schi
+   - Set `MENTOR_INSTALLED=true` on the server to bypass the installer
+   - Optional marker: create an empty file at storage/app/public/installed
+
+- Build assets locally (recommended for shared hosting):
+   - If the app runs in a subfolder, set `ASSET_URL` before building to point to your subfolder build path, e.g. `ASSET_URL=https://example.com/schi/build`
+   - Then build and commit `public/build`
+
+- Apache rewrite for Vite chunks (already added):
+   - [public/.htaccess](public/.htaccess) includes a rule mapping `/assets/*` to `/build/assets/*` to prevent 404s when running under a subfolder:
+
+      ```apache
+      RewriteRule ^assets/(.*)$ build/assets/$1 [L,NC]
+      ```
+
+- Server permissions and caches:
+   - Ensure `storage` and `bootstrap/cache` are writable (775 or 777 as a last resort)
+   - Run once after deploy:
+
+      ```bash
+      php artisan storage:link
+      php artisan config:clear
+      php artisan route:clear
+      php artisan view:clear
+      php artisan cache:clear
+      php artisan migrate --force
+      ```
+
+- Typical deploy via Git:
+   - Build locally → commit `public/build` → push → on server `git pull`
+   - Verify homepage loads without redirecting to `/install/step-1` and assets load from `/build`

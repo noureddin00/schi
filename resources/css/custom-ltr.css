@@ -1408,3 +1408,8 @@ a:hover {
 .course-primary-word{
    display: none;
 }
+
+/* Hide language switcher - can be re-enabled by removing this rule */
+.header-action-language {
+   display: none;
+}

@@ -22,7 +22,13 @@
       name="supported-color-schemes"
       content="light"
    >
+   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
    <style>
+      body, h1, h2, h3, p, a, div {
+         font-family: 'Cairo', 'Almarai', Arial, sans-serif;
+      }
+
       @media only screen and (max-width: 600px) {
          .inner-body {
             width: 100% !important;
@@ -1071,54 +1077,60 @@
 </head>
 
 <body>
-   <h1 style="font-size: 1.5em; font-weight: 600; margin-bottom: 1em;">
-      Instructor Application Status Update
-   </h1>
+   @php
+      $statusLabel = [
+         'approved' => 'تمت الموافقة',
+         'pending' => 'قيد المراجعة',
+         'rejected' => 'مرفوض',
+      ][$status] ?? $status;
+   @endphp
 
-   @if ($status === 'approved')
-      <h2 style="font-size: 1.25em; font-weight: 600; margin: 1.5em 0 1em;">
-         🎉 Congratulations, {{ $user->name }}!
-      </h2>
+      <h1 style="font-size: 1.5em; font-weight: 600; margin-bottom: 1em; font-family: 'Cairo', 'Almarai', Arial, sans-serif;">
+         تحديث حالة طلب المحاضر
+      </h1>
 
+      @if ($status === 'approved')
+         <h2 style="font-size: 1.25em; font-weight: 600; margin: 1.5em 0 1em; font-family: 'Cairo', 'Almarai', Arial, sans-serif;">
+            🎉 تهانينا، {{ $user->name }}!
+         </h2>
 
-      <p style="margin-bottom: 1.5em;">
-         Your instructor application has been approved! You can now create and manage courses on our platform.
-      </p>
+         <p style="margin-bottom: 1.5em; font-family: 'Cairo', 'Almarai', Arial, sans-serif;">
+            تمت الموافقة على طلبك كمحاضر. يمكنك الآن إنشاء الدورات وإدارتها على منصتنا.
+         </p>
 
+         @if (!empty($feedback))
+            <div style="margin: 1.5em 0; padding: 1em; background-color: #f9fafb; border-radius: 0.5em; font-family: 'Cairo', 'Almarai', Arial, sans-serif;">
+               <h3 style="font-weight: 600; margin-bottom: 0.5em;">ملاحظات فريقنا:</h3>
+               {!! $feedback !!}
+            </div>
+         @endif
 
-      @if (!empty($feedback))
-         <div style="margin: 1.5em 0; padding: 1em; background-color: #f9fafb; border-radius: 0.5em;">
-            <h3 style="font-weight: 600; margin-bottom: 0.5em;">Notes from our team:</h3>
-            {!! $feedback !!}
-         </div>
-      @endif
+         <a
+            href="{{ route('dashboard') }}"
+            style="display: inline-block; padding: 0.75em 1.5em; background-color: #0969da; color: #fff; border-radius: 0.5em; text-decoration: none; font-weight: 600; font-family: 'Cairo', 'Almarai', Arial, sans-serif;"
+         >
+            الانتقال إلى لوحة التحكم
+         </a>
+      @else
+         <h2 style="font-size: 1.25em; font-weight: 600; margin: 1.5em 0 1em; font-family: 'Cairo', 'Almarai', Arial, sans-serif;">
+            حالة الطلب: {{ $statusLabel }}
+         </h2>
 
-      <a
-         href="{{ route('dashboard') }}"
-         style="display: inline-block; padding: 0.75em 1.5em; background-color: #0969da; color: #fff; border-radius: 0.5em; text-decoration: none; font-weight: 600;"
-      >
-         Go to Dashboard
-      </a>
-   @else
-      <h2 style="font-size: 1.25em; font-weight: 600; margin: 1.5em 0 1em;">
-         Application Status: {{ ucfirst($status) }}
-      </h2>
+         <p style="margin-bottom: 1em; font-family: 'Cairo', 'Almarai', Arial, sans-serif;">
+            تم تحديث حالة طلبك إلى: <strong>{{ $statusLabel }}</strong>.
+         </p>
 
-      <p style="margin-bottom: 1em;">
-         Your instructor application status has been updated to: <strong>{{ ucfirst($status) }}</strong>.
-      </p>
-
-      @if (!empty($feedback))
-         <div style="margin: 1.5em 0; padding: 1em; background-color: #f9fafb; border-radius: 0.5em;">
-            <h3 style="font-weight: 600; margin-bottom: 0.5em;">Reviewer Feedback:</h3>
-            <div class="prose dark:prose-invert max-w-none py-6">
-               <div class="tiptap ProseMirror !py-0">
-                  {!! $feedback !!}
+         @if (!empty($feedback))
+            <div style="margin: 1.5em 0; padding: 1em; background-color: #f9fafb; border-radius: 0.5em; font-family: 'Cairo', 'Almarai', Arial, sans-serif;">
+               <h3 style="font-weight: 600; margin-bottom: 0.5em;">ملاحظات المراجع:</h3>
+               <div class="prose dark:prose-invert max-w-none py-6">
+                  <div class="tiptap ProseMirror !py-0">
+                     {!! $feedback !!}
+                  </div>
                </div>
             </div>
-         </div>
+         @endif
       @endif
-
       @if ($status === 'rejected')
          <a
             href="{{ route('student.index', ['tab' => 'instructor']) }}"

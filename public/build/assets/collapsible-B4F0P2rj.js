@@ -1,1 +1,0 @@
-import{j as t,by as o,bz as s,bA as a}from"./vendor-CSmzIpnM.js";function i({...l}){return t.jsx(o,{"data-slot":"collapsible",...l})}function n({...l}){return t.jsx(s,{"data-slot":"collapsible-trigger",...l})}function r({...l}){return t.jsx(a,{"data-slot":"collapsible-content",...l})}export{i as C,n as a,r as b};

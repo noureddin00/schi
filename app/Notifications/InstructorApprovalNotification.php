@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 
 class InstructorApprovalNotification extends Notification
 {
@@ -35,8 +36,10 @@ class InstructorApprovalNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        App::setLocale('ar');
+
         return (new MailMessage)
-            ->subject('Instructor Application Status Update')
+            ->subject('تحديث حالة طلب المحاضر')
             ->view('mail.instructor-approval', [
                 'user' => $notifiable,
                 'status' => $this->data['status'],
@@ -51,19 +54,33 @@ class InstructorApprovalNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        $url = $notifiable->role !== 'admin'
-            ? ($this->data['status'] === 'approved'
-                ? route('dashboard')
-                : route('student.index', ['tab' => 'instructor']))
-            : route('instructors.applications');
+        $status = $this->data['status'] ?? 'pending';
+        $statusLabel = [
+            'approved' => 'تمت الموافقة',
+            'pending' => 'قيد المراجعة',
+            'rejected' => 'مرفوض',
+        ][$status] ?? $status;
 
-        $feedback = $notifiable->role === 'student' || $notifiable->role === 'instructor'
-            ? $this->data['feedback']
-            : 'Instructor application is submitted for admin approval';
+        if ($notifiable->role === 'admin') {
+            return [
+                'title' => 'طلب محاضر جديد',
+                'body' => 'يوجد طلب محاضر جديد قيد المراجعة.',
+                'url' => route('instructors.applications'),
+            ];
+        }
+
+        $url = $status === 'approved'
+            ? route('dashboard')
+            : route('student.index', ['tab' => 'instructor']);
+
+        $feedback = $this->data['feedback'] ?? '';
+        $body = $feedback ?: ($status === 'pending'
+            ? 'تم إرسال طلبك للمراجعة من قبل الإدارة.'
+            : 'تم تحديث حالة طلبك إلى: ' . $statusLabel);
 
         return [
-            'title' => 'Instructor Application is ' . $this->data['status'],
-            'body' => $feedback,
+            'title' => 'حالة طلب المحاضر: ' . $statusLabel,
+            'body' => $body,
             'url' => $url,
         ];
     }

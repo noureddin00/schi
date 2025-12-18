@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\App;
 
 class VerifyEmailNotification extends Notification
 {
@@ -54,10 +55,12 @@ class VerifyEmailNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        App::setLocale('ar');
+
         $verificationUrl = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
-            ->subject('Verify Email Address')
+            ->subject('تفعيل البريد الإلكتروني')
             ->view('mail.email-verification', [
                 'user' => $notifiable,
                 'url' => $verificationUrl,

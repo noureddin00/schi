@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Inertia\Response;
 use Inertia\Inertia;
 use Modules\Blog\Http\Requests\BlogRequest;
@@ -82,7 +83,7 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request): RedirectResponse
     {
-        \Log::info('Blog Store Request Data:', $request->validated());
+        Log::info('Blog Store Request Data:', $request->validated());
         
         $this->blogService->storeBlog($request->validated());
 
@@ -162,7 +163,7 @@ class BlogController extends Controller
      */
     public function update(BlogRequest $request, string $id): RedirectResponse
     {
-        \Log::info('Blog Update Request Data:', $request->validated());
+        Log::info('Blog Update Request Data:', $request->validated());
         
         $this->blogService->updateBlog($id, $request->validated());
 

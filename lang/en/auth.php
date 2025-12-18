@@ -53,4 +53,12 @@ return [
     'verify_title' => 'Verify email',
     'verify_description' => 'Please verify your email address by clicking on the link we just emailed to you.',
     'verification_sent' => 'A new verification link has been sent to the email address you provided during registration.',
+    
+    // Email Messages
+    'hello' => 'Hello, :name!',
+    'thank_you_verify' => 'Thank you for registering with us. Please verify your email address by clicking the button below:',
+    'verify_email_button' => 'Verify Email Address',
+    'verification_expire' => 'This verification link will expire in 5 minutes.',
+    'no_account_required' => 'If you did not create an account, no further action is required.',
+    'thanks' => 'Thanks',,
 ];

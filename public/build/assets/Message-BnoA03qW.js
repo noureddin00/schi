@@ -1,0 +1,1 @@
+import{j as e}from"./vendor-BBDGfIfP.js";const s=({success:t,error:d})=>e.jsxs("div",{children:[t&&e.jsx("div",{className:"mb-4 rounded-md bg-green-100 px-5 py-3 text-center text-sm text-green-500",children:t}),d&&e.jsx("div",{className:"mb-4 rounded-md bg-red-100 px-5 py-3 text-center text-sm text-red-500",children:d})]});export{s as default};

@@ -4,8 +4,11 @@ import laravel from 'laravel-vite-plugin';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
+const isProd = process.env.NODE_ENV === 'production' || process.env.APP_ENV === 'production';
+
 export default defineConfig({
-   base: process.env.ASSET_URL || '/',
+   // Ensure built assets reference the correct base path in production
+   base: isProd ? '/build/' : '/',
    plugins: [
       laravel({
          input: ['resources/css/app.css', 'resources/js/app.tsx'],

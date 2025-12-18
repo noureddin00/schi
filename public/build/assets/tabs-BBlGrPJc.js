@@ -1,0 +1,1 @@
+import{u as t,j as a}from"./vendor-BBDGfIfP.js";import{c as e}from"./tabs-Dr9vs2WG.js";const m=({children:s,...r})=>{const o=t();return a.jsx(e,{dir:o.props.direction,...r,children:s})};export{m as T};
