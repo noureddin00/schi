@@ -49,6 +49,14 @@ body {
    0.5. MODERN DESIGN SYSTEM - Okaz-inspired
    ======================================== */
 
+/* Hide Language Switcher (Temporary) */
+.language-switcher,
+[data-testid="language-selector"],
+button[aria-label*="language" i],
+button[aria-label*="lang" i] {
+    display: none !important;
+}
+
 /* Modern Card Styles */
 .modern-card {
     border-radius: 1.5rem; /* 24px */
