@@ -27,7 +27,9 @@ const BlogCard1 = ({ blog, viewType = 'grid', className }: Props) => {
                         className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                         onError={(e) => {
                            const target = e.target as HTMLImageElement;
-                           target.src = '/assets/images/blank-image.jpg';
+                           if (target.src !== '/assets/images/blank-image.jpg') {
+                              target.src = '/assets/images/blank-image.jpg';
+                           }
                         }}
                      />
                   </div>
