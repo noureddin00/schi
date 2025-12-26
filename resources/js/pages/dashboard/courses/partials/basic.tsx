@@ -65,7 +65,7 @@ const Basic = () => {
       });
    }, [categories]);
 
-   const transformedInstructors = instructors?.map((instructor) => ({
+   const transformedInstructors = instructors?.filter((instructor) => instructor.user !== null).map((instructor) => ({
       label: instructor.user.name,
       value: instructor.id as string,
    }));

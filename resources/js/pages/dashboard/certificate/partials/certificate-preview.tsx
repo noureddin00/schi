@@ -1,4 +1,6 @@
+import { usePage } from '@inertiajs/react';
 import { Award, Calendar } from 'lucide-react';
+import { SharedData } from '@/types/global';
 
 interface CertificatePreviewProps {
    template: {
@@ -23,6 +25,8 @@ interface CertificatePreviewProps {
 }
 
 const CertificatePreview = ({ template, studentName, courseName, completionDate, logoUrl }: CertificatePreviewProps) => {
+   const { translate } = usePage<SharedData>().props;
+   const completedLabel = translate?.dashboard?.completed_on || 'تم الإنهاء بتاريخ';
    const { template_data } = template;
 
    return (
@@ -146,7 +150,7 @@ const CertificatePreview = ({ template, studentName, courseName, completionDate,
                      fontFamily: template_data.fontFamily,
                   }}
                >
-                  Completed on: {completionDate}
+                  {completedLabel}: {completionDate}
                </p>
             </div>
 

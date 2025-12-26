@@ -7,7 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { onHandleChange } from '@/lib/inertia';
-import { useForm } from '@inertiajs/react';
+import { SharedData } from '@/types/global';
+import { useForm, usePage } from '@inertiajs/react';
 import { Shuffle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const CouponForm = ({ title, handler, coupon, courses }: Props) => {
+   const { translate } = usePage<SharedData>();
+   const { dashboard, button, input } = translate;
    const [open, setOpen] = useState(false);
 
    // Convert datetime from "2025-11-19 18:00:00" to "2025-11-19T18:00" for datetime-local input
@@ -93,14 +96,14 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                <div className="space-y-4 py-4">
                   <div className="grid grid-cols-2 gap-4">
                      <div className="col-span-2">
-                        <Label htmlFor="code">Coupon Code *</Label>
+                        <Label htmlFor="code">{dashboard.coupon_code} *</Label>
                         <div className="flex gap-2">
                            <Input
                               id="code"
                               name="code"
                               value={data.code}
                               onChange={(e) => setData('code', e.target.value.toUpperCase())}
-                              placeholder="SUMMER2024"
+                              placeholder={dashboard.coupon_code_placeholder}
                               required
                            />
                            <Button type="button" variant="outline" onClick={generateCode}>
@@ -111,21 +114,21 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div>
 
                      <div>
-                        <Label htmlFor="discount_type">Discount Type *</Label>
+                        <Label htmlFor="discount_type">{dashboard.discount_type} *</Label>
                         <Select name="discount_type" value={data.discount_type} onValueChange={(value) => setData('discount_type', value as any)}>
                            <SelectTrigger>
-                              <SelectValue placeholder="Select type" />
+                              <SelectValue placeholder={input.select_option} />
                            </SelectTrigger>
                            <SelectContent>
-                              <SelectItem value="percentage">Percentage (%)</SelectItem>
-                              <SelectItem value="fixed">Fixed Amount ($)</SelectItem>
+                              <SelectItem value="percentage">{dashboard.discount_type_percentage}</SelectItem>
+                              <SelectItem value="fixed">{dashboard.discount_type_fixed}</SelectItem>
                            </SelectContent>
                         </Select>
                         <InputError message={errors.discount_type} />
                      </div>
 
                      <div>
-                        <Label htmlFor="discount">Discount Value *</Label>
+                        <Label htmlFor="discount">{dashboard.discount_value} *</Label>
                         <Input
                            id="discount"
                            name="discount"
@@ -140,14 +143,14 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div>
 
                      <div className="col-span-2">
-                        <Label htmlFor="course_id">Select Course</Label>
+                        <Label htmlFor="course_id">{dashboard.select_course}</Label>
                         <Select
                            name="course_id"
                            value={data.course_id?.toString()}
                            onValueChange={(value) => setData('course_id', value ? parseInt(value) : '')}
                         >
                            <SelectTrigger>
-                              <SelectValue placeholder="All Courses (global coupon)" />
+                              <SelectValue placeholder={dashboard.all_courses_global_coupon} />
                            </SelectTrigger>
                            <SelectContent>
                               {courses.map((course) => (
@@ -161,7 +164,7 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div>
 
                      <div>
-                        <Label htmlFor="valid_from">Valid From</Label>
+                        <Label htmlFor="valid_from">{dashboard.valid_from}</Label>
                         <Input
                            id="valid_from"
                            name="valid_from"
@@ -173,7 +176,7 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div>
 
                      <div>
-                        <Label htmlFor="valid_to">Valid To</Label>
+                        <Label htmlFor="valid_to">{dashboard.valid_to}</Label>
                         <Input
                            id="valid_to"
                            name="valid_to"
@@ -199,7 +202,7 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div> */}
 
                      <div className="flex items-center justify-between">
-                        <Label htmlFor="is_active">Active</Label>
+                        <Label htmlFor="is_active">{dashboard.active}</Label>
                         <Switch id="is_active" checked={data.is_active} onCheckedChange={(checked) => setData('is_active', checked)} />
                      </div>
                   </div>
@@ -208,11 +211,11 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                <DialogFooter className="gap-2">
                   <DialogClose asChild>
                      <Button type="button" variant="outline">
-                        Cancel
+                        {button.cancel}
                      </Button>
                   </DialogClose>
                   <LoadingButton loading={processing} disabled={processing}>
-                     {coupon ? 'Update' : 'Create'}
+                     {coupon ? button.update : button.create}
                   </LoadingButton>
                </DialogFooter>
             </form>

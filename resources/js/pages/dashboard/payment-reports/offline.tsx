@@ -15,7 +15,11 @@ interface Props extends SharedData {
 }
 
 const Offline = ({ payments, translate }: Props) => {
-   const { dashboard } = translate;
+   const { dashboard = {} } = translate || {};
+   const labels = {
+      title: translate?.dashboard?.offline_payment_report || 'تقرير المدفوعات دون اتصال',
+      noResults: dashboard?.no_results || 'لا توجد نتائج',
+   };
    const [selectedPayment, setSelectedPayment] = useState<PaymentHistory | null>(null);
    const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -26,7 +30,7 @@ const Offline = ({ payments, translate }: Props) => {
 
    const table = useReactTable({
       data: payments.data,
-      columns: TableColumn(handleVerifyClick),
+      columns: TableColumn(handleVerifyClick, translate),
       getCoreRowModel: getCoreRowModel(),
       getSortedRowModel: getSortedRowModel(),
       getFilteredRowModel: getFilteredRowModel(),
@@ -37,7 +41,7 @@ const Offline = ({ payments, translate }: Props) => {
          <Card>
             <TableFilter
                data={payments}
-               title="Offline Payment Report"
+               title={labels.title}
                globalSearch={true}
                tablePageSizes={[10, 15, 20, 25, 50]}
                routeName="payment-reports.offline.index"
@@ -59,7 +63,7 @@ const Offline = ({ payments, translate }: Props) => {
                   ) : (
                      <TableRow>
                         <TableCell colSpan={8} className="h-24 text-center">
-                           {dashboard.no_results}
+                           {labels.noResults}
                         </TableCell>
                      </TableRow>
                   )}

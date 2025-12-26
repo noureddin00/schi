@@ -24,13 +24,13 @@ const InstructorsTableColumn = (isAdmin: boolean, translate: LanguageTranslation
       cell: ({ row }) => (
          <div className="flex items-center gap-2">
             <Avatar className="h-11 w-11">
-               <AvatarImage src={row.original.user.photo || ''} className="object-cover" />
+               <AvatarImage src={row.original.user?.photo || ''} className="object-cover" />
                <AvatarFallback>CN</AvatarFallback>
             </Avatar>
 
             <div>
-               <p className="mb-0.5 text-base font-medium">{row.original.user.name}</p>
-               <p className="text-muted-foreground text-xs">{row.original.user.email}</p>
+               <p className="mb-0.5 text-base font-medium">{row.original.user?.name || 'N/A'}</p>
+               <p className="text-muted-foreground text-xs">{row.original.user?.email || 'N/A'}</p>
             </div>
          </div>
       ),

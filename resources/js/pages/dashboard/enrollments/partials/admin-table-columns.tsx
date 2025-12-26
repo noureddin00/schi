@@ -21,7 +21,7 @@ const AdminTableColumn = (enrollmentType: 'course' | 'exam', translate: Language
             return (
                <div className="flex items-center gap-3">
                   <div className="bg-muted h-12 w-12 overflow-hidden rounded-full">
-                     {user.photo ? (
+                     {user?.photo ? (
                         <img src={user.photo} alt={user.name} className="h-full w-full object-cover" />
                      ) : (
                         <div className="flex h-full w-full items-center justify-center bg-gray-200 text-gray-500">
@@ -30,8 +30,8 @@ const AdminTableColumn = (enrollmentType: 'course' | 'exam', translate: Language
                      )}
                   </div>
                   <div>
-                     <p className="font-medium">{user.name}</p>
-                     <p className="text-muted-foreground text-sm">{user.email}</p>
+                     <p className="font-medium">{user?.name || 'N/A'}</p>
+                     <p className="text-muted-foreground text-sm">{user?.email || 'N/A'}</p>
                   </div>
                </div>
             );

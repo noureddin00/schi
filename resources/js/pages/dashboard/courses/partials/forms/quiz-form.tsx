@@ -25,6 +25,18 @@ const QuizForm = ({ title, quiz, handler, sectionId }: Props) => {
    const { translate } = props;
    const { dashboard, input, button } = translate;
 
+   // Arabic fallbacks
+   const labels = {
+      title: input?.title || 'العنوان',
+      hours: dashboard?.hours || 'الساعات',
+      minutes: dashboard?.minutes || 'الدقائق',
+      seconds: dashboard?.seconds || 'الثواني',
+      total_mark: dashboard?.total_mark || 'الدرجة الكلية',
+      pass_mark: dashboard?.pass_mark || 'درجة النجاح',
+      retake_attempts: input?.retake_attempts || 'محاولات إعادة الاختبار',
+      quiz_summary: dashboard?.quiz_summary || 'ملخص الاختبار',
+   };
+
    const { data, setData, post, put, reset, errors, processing } = useForm({
       title: quiz?.title || '',
       course_section_id: sectionId,
@@ -70,13 +82,13 @@ const QuizForm = ({ title, quiz, handler, sectionId }: Props) => {
 
                <form onSubmit={handleSubmit} className="space-y-4 p-0.5">
                   <div>
-                     <Label>{input.title}</Label>
+                     <Label>{labels.title}</Label>
                      <Input
                         required
                         type="text"
                         name="title"
                         value={data.title}
-                        placeholder={input.quiz_title_placeholder}
+                        placeholder={input.quiz_title_placeholder || 'أدخل عنوان الاختبار'}
                         onChange={(e) => onHandleChange(e, setData)}
                      />
                      <InputError message={errors.title} />
@@ -84,37 +96,37 @@ const QuizForm = ({ title, quiz, handler, sectionId }: Props) => {
 
                   <div className="grid grid-cols-3 gap-4">
                      <div>
-                        <Label>{dashboard.hours}</Label>
+                        <Label>{labels.hours}</Label>
                         <Input
                            required
                            type="number"
                            name="hours"
                            value={data.hours}
-                           placeholder={input.hours_placeholder}
+                           placeholder={input.hours_placeholder || '00'}
                            onChange={(e) => onHandleChange(e, setData)}
                         />
                         <InputError message={errors.hours} />
                      </div>
                      <div>
-                        <Label>{dashboard.minutes}</Label>
+                        <Label>{labels.minutes}</Label>
                         <Input
                            required
                            type="number"
                            name="minutes"
                            value={data.minutes}
-                           placeholder={input.minutes_placeholder}
+                           placeholder={input.minutes_placeholder || '00'}
                            onChange={(e) => onHandleChange(e, setData)}
                         />
                         <InputError message={errors.minutes} />
                      </div>
                      <div>
-                        <Label>{dashboard.seconds}</Label>
+                        <Label>{labels.seconds}</Label>
                         <Input
                            required
                            type="number"
                            name="seconds"
                            value={data.seconds}
-                           placeholder={input.seconds_placeholder}
+                           placeholder={input.seconds_placeholder || '00'}
                            onChange={(e) => onHandleChange(e, setData)}
                         />
                         <InputError message={errors.seconds} />
@@ -123,17 +135,17 @@ const QuizForm = ({ title, quiz, handler, sectionId }: Props) => {
 
                   <div className="grid grid-cols-3 gap-4">
                      <div>
-                        <Label>{dashboard.total_mark}</Label>
+                        <Label>{labels.total_mark}</Label>
                         <Input required type="number" name="total_mark" value={data.total_mark} onChange={(e) => onHandleChange(e, setData)} />
                         <InputError message={errors.total_mark} />
                      </div>
                      <div>
-                        <Label>{dashboard.pass_mark}</Label>
+                        <Label>{labels.pass_mark}</Label>
                         <Input required type="number" name="pass_mark" value={data.pass_mark} onChange={(e) => onHandleChange(e, setData)} />
                         <InputError message={errors.pass_mark} />
                      </div>
                      <div>
-                        <Label>{input.retake_attempts}</Label>
+                        <Label>{labels.retake_attempts}</Label>
                         <Input
                            min="1"
                            required
@@ -148,7 +160,7 @@ const QuizForm = ({ title, quiz, handler, sectionId }: Props) => {
                   </div>
 
                   <div>
-                     <Label htmlFor="summary">{dashboard.quiz_summary}</Label>
+                     <Label htmlFor="summary">{labels.quiz_summary}</Label>
                      <Editor
                         ssr={true}
                         output="html"
@@ -172,11 +184,11 @@ const QuizForm = ({ title, quiz, handler, sectionId }: Props) => {
                   <DialogFooter className="flex justify-end space-x-2 pt-4">
                      <DialogClose asChild>
                         <Button type="button" variant="outline">
-                           {button.close}
+                           {button?.close || 'إغلاق'}
                         </Button>
                      </DialogClose>
 
-                     <LoadingButton loading={processing}>{button.submit}</LoadingButton>
+                     <LoadingButton loading={processing}>{button?.submit || 'إرسال'}</LoadingButton>
                   </DialogFooter>
                </form>
             </ScrollArea>

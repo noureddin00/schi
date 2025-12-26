@@ -19,24 +19,36 @@ const Curriculum = () => {
    const { translate } = props;
    const { button, dashboard } = translate;
 
+   // Arabic fallbacks for curriculum labels
+   const labels = {
+      resource: dashboard?.resource || 'مورد',
+      sort_lessons: dashboard?.sort_lessons || 'ترتيب الدروس',
+      sort_items: dashboard?.sort_items || 'فرز العناصر',
+      update_section: dashboard?.update_section || 'تحديث القسم',
+      section_menu: dashboard?.section_menu || 'قائمة القسم',
+      lesson_resources: dashboard?.lesson_resources || 'موارد الدرس',
+      update_lesson: dashboard?.update_lesson || 'تحديث الدرس',
+      update_quiz: dashboard?.update_quiz || 'تحديث الاختبار',
+   };
+
    return (
       <Card className="p-4 sm:p-6">
          <div className="flex flex-wrap items-center gap-4">
             <SectionForm
-               title={button.add_section}
+               title={button?.add_section || 'إضافة قسم'}
                handler={
                   <Button variant="ghost" className="bg-muted hover:!bg-muted-foreground/10">
-                     {button.add_section}
+                     {button?.add_section || 'إضافة قسم'}
                   </Button>
                }
             />
 
             <DataSortModal
-               title={button.sort}
+               title={button?.sort || 'فرز'}
                data={props.course.sections}
                handler={
                   <Button variant="ghost" className="bg-muted hover:!bg-muted-foreground/10">
-                     {button.sort_section}
+                     {button?.sort_section || 'ترتيب الأقسام'}
                   </Button>
                }
                onOrderChange={(newOrder) => {
@@ -71,27 +83,27 @@ const Curriculum = () => {
                            <Popover>
                               <PopoverTrigger>
                                  <Button variant="ghost" className="bg-muted hover:!bg-muted-foreground/10 px-2.5">
-                                    <span>{dashboard.section_menu}</span>
+                                    <span>{labels.section_menu}</span>
                                     <ChevronDown className="h-4 w-4" />
                                  </Button>
                               </PopoverTrigger>
                               <PopoverContent align="end" className="flex w-[160px] flex-col space-y-1 p-2">
                                  <LessonForm
-                                    title={button.add_lesson}
+                                    title={button?.add_lesson || 'إضافة درس'}
                                     sectionId={section.id}
                                     handler={
                                        <Button variant="ghost" className="bg-muted hover:!bg-muted-foreground/10 h-8 w-full">
-                                          <span>{button.add_lesson}</span>
+                                          <span>{button?.add_lesson || 'إضافة درس'}</span>
                                        </Button>
                                     }
                                  />
 
                                  <DataSortModal
-                                    title={dashboard.sort_items}
+                                    title={labels.sort_items}
                                     data={section.section_lessons}
                                     handler={
                                        <Button variant="ghost" className="bg-muted hover:!bg-muted-foreground/10 h-8 w-full">
-                                          <span>{dashboard.sort_lessons}</span>
+                                          <span>{labels.sort_lessons}</span>
                                        </Button>
                                     }
                                     onOrderChange={(newOrder) => {
@@ -111,21 +123,21 @@ const Curriculum = () => {
                                  />
 
                                  <QuizForm
-                                    title={button.add_quiz}
+                                    title={button?.add_quiz || 'إضافة اختبار'}
                                     sectionId={section.id}
                                     handler={
                                        <Button variant="ghost" className="bg-muted hover:!bg-muted-foreground/10 h-8 w-full">
-                                          <span>{button.add_quiz}</span>
+                                          <span>{button?.add_quiz || 'إضافة اختبار'}</span>
                                        </Button>
                                     }
                                  />
 
                                  <SectionForm
-                                    title={dashboard.update_section}
+                                    title={labels.update_section}
                                     section={section}
                                     handler={
                                        <Button variant="secondary" className="h-8 w-full">
-                                          <span>{dashboard.update_section}</span>
+                                          <span>{labels.update_section}</span>
                                        </Button>
                                     }
                                  />
@@ -139,7 +151,7 @@ const Curriculum = () => {
                                           variant="ghost"
                                           className="bg-destructive/8 hover:bg-destructive/6 text-destructive hover:text-destructive h-8 w-full"
                                        >
-                                          {button.delete_section}
+                                          {button?.delete_section || 'حذف القسم'}
                                        </Button>
                                     }
                                  />
@@ -158,10 +170,10 @@ const Curriculum = () => {
                               <div className="invisible flex items-center gap-2 group-hover:visible">
                                  <ResourceModal
                                     lesson={lesson}
-                                    title={dashboard.lesson_resources}
+                                    title={labels.lesson_resources}
                                     handler={
                                        <Button variant="secondary" className="h-7 px-2">
-                                          <FolderOpen className="h-3 w-3" /> <span>Resource</span>
+                                          <FolderOpen className="h-3 w-3" /> <span>{labels.resource}</span>
                                        </Button>
                                     }
                                  />
@@ -169,7 +181,7 @@ const Curriculum = () => {
                                  <LessonForm
                                     lesson={lesson}
                                     sectionId={section.id}
-                                    title={dashboard.update_lesson}
+                                    title={labels.update_lesson}
                                     handler={
                                        <Button size="icon" variant="secondary" className="h-7 w-7">
                                           <Pencil className="h-3 w-3" />
@@ -191,7 +203,7 @@ const Curriculum = () => {
                            </div>
                         ))
                      ) : (
-                        <div className="text-muted-foreground py-4 text-center text-sm">No lessons found in this section.</div>
+                        <div className="text-muted-foreground py-4 text-center text-sm">{dashboard.no_lessons_found}</div>
                      )}
 
                      {section.section_quizzes.map((quiz: SectionQuiz) => (
@@ -222,7 +234,7 @@ const Curriculum = () => {
 
                               <QuizForm
                                  quiz={quiz}
-                                 title={dashboard.update_quiz}
+                                 title={labels.update_quiz}
                                  sectionId={section.id}
                                  handler={
                                     <Button size="icon" variant="secondary" className="h-7 w-7">

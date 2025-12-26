@@ -2,7 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Link, router } from '@inertiajs/react';
+import { SharedData } from '@/types/global';
+import { Link, router, usePage } from '@inertiajs/react';
 import { Award, Check, Edit, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import CertificatePreview from './certificate-preview';
@@ -13,6 +14,23 @@ interface CertificateCardProps {
 }
 
 const CertificateCard = ({ type, template }: CertificateCardProps) => {
+   const { translate } = usePage().props as SharedData;
+   const { dashboard, button, common } = translate;
+
+   const labels = {
+      active: common?.active || 'مفعل',
+      created: dashboard?.created_label || 'تم الإنشاء:',
+      primary: dashboard?.primary || 'أساسي',
+      secondary: dashboard?.secondary || 'ثانوي',
+      activate: dashboard?.activate || 'تفعيل',
+      edit: button?.edit || 'تعديل',
+      deleteConfirm: dashboard?.delete_certificate_confirm || 'هل أنت متأكد من حذف قالب الشهادة؟',
+      preview: dashboard?.preview || 'معاينة',
+      sampleStudent: dashboard?.sample_student || 'اسم الطالب',
+      sampleCourse: dashboard?.sample_course || 'اسم المقرر',
+      sampleDate: dashboard?.sample_date || '1 يناير 2025',
+   };
+
    const [previewTemplate, setPreviewTemplate] = useState<CertificateTemplate | null>(null);
 
    const handleActivate = (templateId: number) => {
@@ -26,7 +44,7 @@ const CertificateCard = ({ type, template }: CertificateCardProps) => {
    };
 
    const handleDelete = (templateId: number) => {
-      if (confirm('Are you sure you want to delete this certificate template?')) {
+      if (confirm(labels.deleteConfirm)) {
          router.delete(route('certificate.templates.destroy', templateId), {
             preserveScroll: true,
          });
@@ -47,7 +65,7 @@ const CertificateCard = ({ type, template }: CertificateCardProps) => {
             {template.is_active && (
                <div className="bg-primary text-primary-foreground absolute top-4 right-4 rounded-full px-3 py-1 text-xs font-semibold">
                   <Check className="mr-1 inline h-3 w-3" />
-                  Active
+                  {labels.active}
                </div>
             )}
             <CardHeader>
@@ -55,7 +73,9 @@ const CertificateCard = ({ type, template }: CertificateCardProps) => {
                   <Award className="mr-2 h-5 w-5" />
                   {template.name}
                </CardTitle>
-               <CardDescription>Created: {new Date(template.created_at).toLocaleDateString()}</CardDescription>
+               <CardDescription>
+                  {labels.created} {new Date(template.created_at).toLocaleDateString()}
+               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                {/* Mini Preview */}
@@ -79,11 +99,11 @@ const CertificateCard = ({ type, template }: CertificateCardProps) => {
                <div className="flex gap-2">
                   <div className="flex items-center gap-1">
                      <div className="h-4 w-4 rounded border" style={{ backgroundColor: template.template_data.primaryColor }} />
-                     <span className="text-xs">Primary</span>
+                     <span className="text-xs">{labels.primary}</span>
                   </div>
                   <div className="flex items-center gap-1">
                      <div className="h-4 w-4 rounded border" style={{ backgroundColor: template.template_data.secondaryColor }} />
-                     <span className="text-xs">Secondary</span>
+                     <span className="text-xs">{labels.secondary}</span>
                   </div>
                </div>
 
@@ -92,13 +112,13 @@ const CertificateCard = ({ type, template }: CertificateCardProps) => {
                   {!template.is_active && (
                      <Button size="sm" variant="outline" className="flex-1" onClick={() => handleActivate(template.id as number)}>
                         <Check className="mr-1 h-3 w-3" />
-                        Activate
+                        {labels.activate}
                      </Button>
                   )}
                   <Button asChild size="sm" variant="outline" className="flex-1">
                      <Link href={route('certificate.templates.edit', template.id)}>
                         <Edit className="mr-1 h-3 w-3" />
-                        Edit
+                        {labels.edit}
                      </Link>
                   </Button>
                   <Button size="sm" variant="destructive" onClick={() => handleDelete(template.id as number)}>
@@ -115,14 +135,16 @@ const CertificateCard = ({ type, template }: CertificateCardProps) => {
                   <ScrollArea className="max-h-[90vh]">
                      <div className="p-6">
                         <DialogHeader className="mb-6">
-                           <DialogTitle>Preview: {previewTemplate?.name}</DialogTitle>
+                           <DialogTitle>
+                              {labels.preview}: {previewTemplate?.name}
+                           </DialogTitle>
                         </DialogHeader>
 
                         <CertificatePreview
                            template={previewTemplate}
-                           studentName="John Doe"
-                           courseName="Sample Course Name"
-                           completionDate="January 1, 2025"
+                           studentName={labels.sampleStudent}
+                           courseName={labels.sampleCourse}
+                           completionDate={labels.sampleDate}
                         />
                      </div>
                   </ScrollArea>

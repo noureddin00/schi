@@ -20,8 +20,22 @@ const ApplicationApproval = ({ instructor, actionComponent }: Props) => {
 
    // Get translations from usePage hook
    const { props } = usePage<SharedData>();
-   const { translate } = props;
-   const { dashboard, input, button } = translate;
+   const translate = props.translate || {};
+   const { dashboard = {}, input = {}, button = {}, common = {} } = translate;
+
+   const labels = {
+      dialogTitle: dashboard?.are_you_absolutely_sure || 'هل أنت متأكد تمامًا؟',
+      approvalStatus: dashboard?.approval_status || 'حالة الموافقة',
+      selectApprovalStatus: common?.select_the_approval_status || dashboard?.select_approval_status || 'اختر حالة الموافقة',
+      feedback: dashboard?.feedback || 'الملاحظات',
+      submit: button?.submit || 'إرسال',
+   };
+
+   const statusTranslations: Record<string, string> = {
+      approved: dashboard?.approved || 'موافق عليه',
+      rejected: dashboard?.rejected || 'مرفوض',
+      pending: dashboard?.pending || 'قيد الانتظار',
+   };
 
    const { data, put, setData, processing, errors, reset } = useForm({
       status: '',
@@ -44,20 +58,20 @@ const ApplicationApproval = ({ instructor, actionComponent }: Props) => {
          <DialogTrigger asChild>{actionComponent}</DialogTrigger>
          <DialogContent>
             <DialogHeader>
-               <DialogTitle>{dashboard.are_you_absolutely_sure}</DialogTitle>
+               <DialogTitle>{labels.dialogTitle}</DialogTitle>
 
                {/* add a form where admin can select status then write a feedback and submit */}
                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                     <Label>{dashboard.approval_status} *</Label>
+                     <Label>{labels.approvalStatus} *</Label>
                      <Select required value={data.status} onValueChange={(value) => setData('status', value as any)}>
                         <SelectTrigger>
-                           <SelectValue placeholder="Select the approval status" />
+                           <SelectValue placeholder={labels.selectApprovalStatus} />
                         </SelectTrigger>
                         <SelectContent>
                            {statuses.map((status) => (
                               <SelectItem key={status} value={status} className="capitalize">
-                                 {status}
+                                 {statusTranslations[status] || status}
                               </SelectItem>
                            ))}
                         </SelectContent>
@@ -66,7 +80,7 @@ const ApplicationApproval = ({ instructor, actionComponent }: Props) => {
                   </div>
 
                   <div className="pb-6">
-                     <Label>{dashboard.feedback}</Label>
+                     <Label>{labels.feedback}</Label>
                      <Editor
                         ssr={true}
                         output="html"
@@ -88,7 +102,7 @@ const ApplicationApproval = ({ instructor, actionComponent }: Props) => {
                   </div>
 
                   <LoadingButton loading={processing} className="w-full">
-                     {button.submit}
+                     {labels.submit}
                   </LoadingButton>
                </form>
             </DialogHeader>

@@ -20,16 +20,27 @@ import { Editor } from 'richtor';
 import 'richtor/styles';
 import { CourseUpdateProps } from '../../update';
 
-const getLessonTypes = (translate: any) => [
-   // { value: 'vimeo', label: 'Vimeo Video', flag: true },
-   // { value: 'drive', label: 'Google drive video', flag: true },
-   { value: 'video', label: translate.dashboard.video_file, flag: false },
-   { value: 'video_url', label: translate.dashboard.video_url, flag: false },
-   { value: 'document', label: translate.dashboard.document_file, flag: false },
-   { value: 'image', label: translate.dashboard.image_file, flag: false },
-   { value: 'text', label: translate.dashboard.text_content, flag: false },
-   { value: 'embed', label: translate.dashboard.embed_source, flag: false },
-];
+const getLessonTypes = (translate: any) => {
+   const d = translate.dashboard || {};
+   // Arabic fallbacks in case translations are missing/empty
+   const fallback = {
+      video: 'فيديو',
+      video_url: 'رابط فيديو',
+      document: 'مستند',
+      image: 'صورة',
+      text: 'نصي',
+      embed: 'تضمين',
+   };
+
+   return [
+      { value: 'video', label: d.video_file || fallback.video, flag: false },
+      { value: 'video_url', label: d.video_url || fallback.video_url, flag: false },
+      { value: 'document', label: d.document_file || fallback.document, flag: false },
+      { value: 'image', label: d.image_file || fallback.image, flag: false },
+      { value: 'text', label: d.text_content || fallback.text, flag: false },
+      { value: 'embed', label: d.embed_source || fallback.embed, flag: false },
+   ];
+};
 
 interface Props {
    title: string;
@@ -67,6 +78,13 @@ const LessonForm = ({ title, handler, lesson, sectionId }: Props) => {
       course_id: lesson ? lesson.course_id : props.course.id,
       course_section_id: sectionId,
    });
+
+   const lessonTypeFallback = lessonTypes.reduce<Record<string, string>>((acc, type) => {
+      acc[type.value] = type.label;
+      return acc;
+   }, {});
+   const selectedLessonTypeLabel = lessonTypes.find((type) => type.value === data.lesson_type)?.label || lessonTypeFallback[data.lesson_type] || data.lesson_type;
+   const typeVideoUrlPlaceholder = input.type_video_url_placeholder || 'أدخل رابط الفيديو';
 
    const isFileUpload = ['video', 'document', 'image'].includes(data.lesson_type);
 
@@ -196,14 +214,14 @@ const LessonForm = ({ title, handler, lesson, sectionId }: Props) => {
 
                               <div>
                                  <Label>
-                                    Video URL
-                                    <span className="text-xs text-gray-500">(Provide the shareable url only)</span>
+                                    {dashboard.video_url}
+                                    <span className="text-xs text-gray-500">{input.video_url_hint}</span>
                                  </Label>
                                  <Input
                                     required
                                     name="lesson_src"
                                     value={data.lesson_src || ''}
-                                    placeholder={`Type your ${data.lesson_provider} video url`}
+                                    placeholder={typeVideoUrlPlaceholder}
                                     onChange={(e) => onHandleChange(e, setData)}
                                  />
                                  <InputError message={errors.lesson_src} />
@@ -214,7 +232,7 @@ const LessonForm = ({ title, handler, lesson, sectionId }: Props) => {
                         {['video', 'document', 'image'].includes(data.lesson_type) && (
                            <div>
                               <Label>
-                                 {input.select} {data.lesson_type}
+                                 {(input.select || 'اختر')} {selectedLessonTypeLabel}
                               </Label>
 
                               <ChunkedUploaderInput
@@ -247,8 +265,8 @@ const LessonForm = ({ title, handler, lesson, sectionId }: Props) => {
                         {data.lesson_type === 'embed' && (
                            <div>
                               <Label>
-                                 Embed source
-                                 <span className="text-xs text-gray-500">(Provide the source url only)</span>
+                                 {input.embed_source}
+                                 <span className="text-xs text-gray-500">{input.embed_source_hint}</span>
                               </Label>
                               <Textarea
                                  required
@@ -269,8 +287,8 @@ const LessonForm = ({ title, handler, lesson, sectionId }: Props) => {
                                  ssr={true}
                                  output="html"
                                  placeholder={{
-                                    paragraph: 'Type your content here...',
-                                    imageCaption: 'Type caption for image (optional)',
+                                    paragraph: input.type_content_placeholder,
+                                    imageCaption: input.image_caption_placeholder,
                                  }}
                                  contentMinHeight={256}
                                  contentMaxHeight={640}
@@ -304,13 +322,13 @@ const LessonForm = ({ title, handler, lesson, sectionId }: Props) => {
                         )}
 
                         <div>
-                           <Label htmlFor="summary">Summary</Label>
+                           <Label htmlFor="summary">{input.summary}</Label>
                            <Editor
                               ssr={true}
                               output="html"
                               placeholder={{
-                                 paragraph: 'Type your content here...',
-                                 imageCaption: 'Type caption for image (optional)',
+                                 paragraph: input.type_content_placeholder,
+                                 imageCaption: input.image_caption_placeholder,
                               }}
                               contentMinHeight={256}
                               contentMaxHeight={640}
@@ -321,7 +339,7 @@ const LessonForm = ({ title, handler, lesson, sectionId }: Props) => {
                         </div>
 
                         <div>
-                           <Label>Lesson type</Label>
+                           <Label>{input.lesson_pricing_type}</Label>
                            <RadioGroup
                               required
                               defaultValue={data.is_free ? 'free' : 'paid'}
@@ -363,7 +381,7 @@ const LessonForm = ({ title, handler, lesson, sectionId }: Props) => {
 
                         {(lesson || lessonType === 'form') && (
                            <LoadingButton loading={processing || isSubmit} disabled={processing || isSubmit}>
-                              {isSubmit ? 'Uploading...' : button.submit}
+                              {isSubmit ? input.uploading : button.submit}
                            </LoadingButton>
                         )}
                      </DialogFooter>

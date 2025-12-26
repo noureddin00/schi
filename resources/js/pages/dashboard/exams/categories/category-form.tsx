@@ -21,7 +21,7 @@ interface Props {
 
 const CategoryForm = ({ title, category, handler }: Props) => {
    const [open, setOpen] = useState(false);
-   const { input, button } = useLang();
+   const { input, button, common } = useLang();
 
    const { data, setData, post, errors, processing, reset } = useForm({
       title: category ? category.title : '',
@@ -76,7 +76,7 @@ const CategoryForm = ({ title, category, handler }: Props) => {
                      <IconPickerDialog
                         name="icon"
                         value={data.icon || ''}
-                        placeholder="Pick your category icon"
+                        placeholder={input?.category_icon_placeholder || 'اختر أيقونة التصنيف'}
                         onSelect={(icon) => setData('icon', icon)}
                      />
                      <InputError message={errors.icon} />
@@ -88,8 +88,8 @@ const CategoryForm = ({ title, category, handler }: Props) => {
                            <SelectValue placeholder={input.status_placeholder} />
                         </SelectTrigger>
                         <SelectContent>
-                           <SelectItem value="1">Active</SelectItem>
-                           <SelectItem value="0">Inactive</SelectItem>
+                           <SelectItem value="1">{common?.active || 'نشط'}</SelectItem>
+                           <SelectItem value="0">{common?.inactive || 'غير نشط'}</SelectItem>
                         </SelectContent>
                      </Select>
                   </div>

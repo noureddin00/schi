@@ -242,6 +242,10 @@ return [
     'quiz_questions' => 'أسئلة الاختبار',
     'assignments' => 'المهام',
     'lesson_resources' => 'موارد الدرس',
+    'no_lessons_found' => 'لم يتم العثور على دروس في هذا القسم.',
+    'resource' => 'مورد',
+    'resource_list' => 'قائمة الموارد',
+    'add_resource' => 'إضافة مورد',
     'assignment_submissions' => 'تقديمات المهام',
 
     // User Management
@@ -644,4 +648,17 @@ return [
         'enter_og_title' => 'أدخل عنوان Open Graph',
         'og_description' => 'وصف OG',
         'enter_og_description' => 'أدخل وصف Open Graph لوسائل التواصل الاجتماعي',
-];
+
+        // كوبونات الدورات
+        'coupon_code' => 'كود القسيمة',
+        'coupon_code_placeholder' => 'SUMMER2024',
+        'generate_code' => 'توليد كود',
+        'discount_type' => 'نوع الخصم',
+        'discount_type_percentage' => 'نسبة (%)',
+        'discount_type_fixed' => 'مبلغ ثابت ($)',
+        'discount_value' => 'قيمة الخصم',
+        'select_course' => 'اختر دورة',
+        'all_courses_global_coupon' => 'جميع الدورات (قسيمة عامة)',
+        'valid_from' => 'صالح من',
+        'valid_to' => 'صالح إلى',
+    ];

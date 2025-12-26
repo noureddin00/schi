@@ -242,6 +242,10 @@ return [
     'quiz_questions' => 'Quiz Questions',
     'assignments' => 'Assignments',
     'lesson_resources' => 'Lesson Resources',
+    'no_lessons_found' => 'No lessons found in this section.',
+    'resource' => 'Resource',
+    'resource_list' => 'Resource List',
+    'add_resource' => 'Add Resource',
     'assignment_submissions' => 'Assignment Submissions',
 
     // User Management
@@ -644,4 +648,17 @@ return [
         'enter_og_title' => 'Enter Open Graph title',
         'og_description' => 'OG Description',
         'enter_og_description' => 'Enter Open Graph description for social media',
-];
+
+        // Course Coupons
+        'coupon_code' => 'Coupon Code',
+        'coupon_code_placeholder' => 'SUMMER2024',
+        'generate_code' => 'Generate Code',
+        'discount_type' => 'Discount Type',
+        'discount_type_percentage' => 'Percentage (%)',
+        'discount_type_fixed' => 'Fixed Amount ($)',
+        'discount_value' => 'Discount Value',
+        'select_course' => 'Select Course',
+        'all_courses_global_coupon' => 'All Courses (global coupon)',
+        'valid_from' => 'Valid From',
+        'valid_to' => 'Valid To',
+    ];

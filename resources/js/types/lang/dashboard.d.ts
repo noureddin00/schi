@@ -254,6 +254,19 @@ interface DashboardLang {
    instructor_revenue_this_year: string;
    admin_revenue_this_year: string;
 
+   // Course Coupons
+    coupon_code: string;
+    coupon_code_placeholder: string;
+    generate_code: string;
+    discount_type: string;
+    discount_type_percentage: string;
+    discount_type_fixed: string;
+    discount_value: string;
+    select_course: string;
+    all_courses_global_coupon: string;
+    valid_from: string;
+    valid_to: string;
+
    // Content Moderation
    content_review: string;
    flagged_content: string;

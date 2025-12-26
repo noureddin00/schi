@@ -5,9 +5,9 @@
 
     RewriteEngine On
 
-    # Ensure Vite chunk assets resolve correctly when requested from /assets
-    # Map /assets/* to /build/assets/* so dynamic imports work in subfolders
-    RewriteRule ^assets/(.*)$ build/assets/$1 [L,NC]
+    # Serve static assets directly (do not rewrite)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

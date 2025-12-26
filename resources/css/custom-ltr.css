@@ -119,6 +119,36 @@ button[aria-label*="lang" i] {
     background-clip: text;
 }
 
+/* Course Search Hero Section with Overlay */
+.course-search-hero {
+    position: relative;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.course-search-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.course-search-hero > * {
+    position: relative;
+    z-index: 10;
+}
+
+/* Course listing hero */
+.course-hero-gradient {
+    color: #ffffff;
+    font-size: 1.875rem;
+}
+
 /* Modern Background Colors */
 .bg-modern-light {
     background-color: #fafbfc;

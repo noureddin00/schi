@@ -54,7 +54,9 @@ const CourseCard1 = ({ course, viewType = 'grid', className, wishlists }: Props)
                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                      onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = '/assets/images/blank-image.jpg';
+                        if (target.src !== '/assets/images/blank-image.jpg') {
+                           target.src = '/assets/images/blank-image.jpg';
+                        }
                      }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

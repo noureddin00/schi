@@ -35,7 +35,9 @@ const ExamCard7 = ({ exam, attempts, bestAttempt, className }: Props) => {
                className="h-full w-full object-cover md:min-h-[220px]"
                onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/assets/images/blank-image.jpg';
+                  if (target.src !== '/assets/images/blank-image.jpg') {
+                     target.src = '/assets/images/blank-image.jpg';
+                  }
                }}
             />
          </CardHeader>

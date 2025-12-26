@@ -5,7 +5,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/hooks/use-auth';
 import DashboardLayout from '@/layouts/dashboard/layout';
-import { Head } from '@inertiajs/react';
+import { SharedData } from '@/types/global';
+import { Head, usePage } from '@inertiajs/react';
 import { Pencil, Plus, Trash2 } from 'lucide-react';
 import { DynamicIcon } from 'lucide-react/dynamic';
 import CategoryForm from './category-form';
@@ -16,26 +17,44 @@ interface Props {
 
 const CategoriesIndex = ({ categories }: Props) => {
    const { isAdmin } = useAuth();
+   const { props } = usePage<SharedData>();
+   const translate = props.translate || {};
+   const { dashboard = {}, button = {}, table = {}, common = {} } = translate;
+
+   const labels = {
+      headTitle: dashboard?.exam_categories || 'تصنيفات الاختبارات',
+      pageTitle: dashboard?.exam_categories || 'تصنيفات الاختبارات',
+      pageDescription: dashboard?.manage_exam_categories || 'إدارة تصنيفات الاختبارات وتنظيم الاختبارات الخاصة بك',
+      createCategory: dashboard?.create_category || button?.create || 'إنشاء تصنيف',
+      addCategory: button?.add_category || 'إضافة تصنيف',
+      editCategory: dashboard?.edit_category || 'تعديل التصنيف',
+      deleteConfirm: dashboard?.delete_category_warning || 'هل أنت متأكد من حذف هذا التصنيف؟',
+      noDescription: table?.no_description || 'لا يوجد وصف',
+      active: common?.active || 'نشط',
+      inactive: common?.inactive || 'غير نشط',
+      examsCount: dashboard?.exams_count || 'الاختبارات',
+      emptyText: dashboard?.no_categories_found || 'لا توجد تصنيفات. أنشئ أول تصنيف!',
+   };
 
    const defaultCategory = categories.find((category) => category.slug === 'default');
    const otherCategories = categories.filter((category) => category.slug !== 'default');
    return (
       <>
-         <Head title="Exam Categories" />
+         <Head title={labels.headTitle} />
 
          <div className="space-y-6">
             <div className="flex items-center justify-between">
                <div>
-                  <h1 className="text-3xl font-bold text-gray-900">Exam Categories</h1>
-                  <p className="mt-1 text-sm text-gray-600">Manage exam categories and organize your exams</p>
+                  <h1 className="text-3xl font-bold text-gray-900">{labels.pageTitle}</h1>
+                  <p className="mt-1 text-sm text-gray-600">{labels.pageDescription}</p>
                </div>
 
                <CategoryForm
-                  title="Create Category"
+                  title={labels.createCategory}
                   handler={
                      <Button>
                         <Plus className="mr-2 h-4 w-4" />
-                        Add Category
+                        {labels.addCategory}
                      </Button>
                   }
                />
@@ -53,7 +72,7 @@ const CategoriesIndex = ({ categories }: Props) => {
                         <Separator className="my-4" />
 
                         <p className="text-muted-foreground text-sm">
-                           When a category is deleted, its exams are moved to the default category. The default category cannot be edited or removed.
+                           {dashboard?.default_category_note || 'عند حذف تصنيف، يتم نقل الاختبارات إلى التصنيف الافتراضي. لا يمكن تعديل أو حذف التصنيف الافتراضي.'}
                         </p>
                      </Card>
                   )}
@@ -68,7 +87,7 @@ const CategoriesIndex = ({ categories }: Props) => {
 
                            <div className="absolute -top-1 right-0 space-x-1">
                               <CategoryForm
-                                 title="Edit Category"
+                                 title={labels.editCategory}
                                  category={category}
                                  handler={
                                     <Button size="icon" variant="ghost" className="bg-muted hover:bg-muted-foreground/10 h-8 w-8 rounded-full p-0">
@@ -79,7 +98,7 @@ const CategoriesIndex = ({ categories }: Props) => {
 
                               {isAdmin && (
                                  <DeleteModal
-                                    message="Are you sure you want to delete this category?"
+                                    message={labels.deleteConfirm}
                                     routePath={route('exam-categories.destroy', category.id)}
                                     actionComponent={
                                        <Button
@@ -98,10 +117,10 @@ const CategoriesIndex = ({ categories }: Props) => {
                         <Separator className="my-4" />
 
                         <CardContent className="p-0">
-                           <p className="mb-3 text-sm text-gray-600">{category.description || 'No description'}</p>
+                           <p className="mb-3 text-sm text-gray-600">{category.description || labels.noDescription}</p>
                            <div className="flex items-center justify-between">
-                              <Badge variant={category.status ? 'default' : 'secondary'}>{category.status ? 'Active' : 'Inactive'}</Badge>
-                              <span className="text-sm text-gray-500">{category.exams_count || 0} exams</span>
+                              <Badge variant={category.status ? 'default' : 'secondary'}>{category.status ? labels.active : labels.inactive}</Badge>
+                              <span className="text-sm text-gray-500">{category.exams_count || 0} {labels.examsCount}</span>
                            </div>
                         </CardContent>
                      </Card>
@@ -111,13 +130,13 @@ const CategoriesIndex = ({ categories }: Props) => {
                <div className="col-span-full">
                   <Card>
                      <CardContent className="flex flex-col items-center justify-center py-12">
-                        <p className="mb-4 text-gray-600">No categories found. Create your first category!</p>
+                        <p className="mb-4 text-gray-600">{labels.emptyText}</p>
                         <CategoryForm
-                           title="Create Category"
+                           title={labels.createCategory}
                            handler={
                               <Button>
                                  <Plus className="mr-2 h-4 w-4" />
-                                 Add Category
+                                 {labels.addCategory}
                               </Button>
                            }
                         />

@@ -15,9 +15,19 @@ interface Props {
 
 const EditForm = ({ user, actionComponent }: Props) => {
    const { props } = usePage<SharedData>();
-   const { translate } = props;
-   const { dashboard, input, button, common } = translate;
+   const translate = props.translate || {};
+   const { dashboard = {}, input = {}, button = {}, common = {} } = translate;
    const [open, setOpen] = useState(false);
+
+   const labels = {
+      title: dashboard?.update_user || 'تحديث المستخدم',
+      name: input?.name || 'الاسم',
+      status: input?.status || 'الحالة',
+      selectStatus: dashboard?.select_approval_status || 'اختر حالة الموافقة',
+      active: common?.active || 'نشط',
+      inactive: common?.inactive || 'غير نشط',
+      submit: button?.submit || 'إرسال',
+   };
 
    const { data, put, setData, processing, errors, reset } = useForm({
       name: user.name,
@@ -40,36 +50,36 @@ const EditForm = ({ user, actionComponent }: Props) => {
          <DialogTrigger asChild>{actionComponent}</DialogTrigger>
          <DialogContent>
             <DialogHeader>
-               <DialogTitle>{dashboard.update_user}</DialogTitle>
+               <DialogTitle>{labels.title}</DialogTitle>
 
                {/* add a form where admin can select status then write a feedback and submit */}
                <form onSubmit={handleSubmit} className="space-y-4 text-start">
                   <div>
-                     <Label>{input.name}</Label>
+                     <Label>{labels.name}</Label>
                      <Input required value={data.name} onChange={(e) => setData('name', e.target.value)} />
                      <InputError message={errors.name} />
                   </div>
 
                   <div>
-                     <Label>{input.status}</Label>
+                     <Label>{labels.status}</Label>
                      <Select
                         required
                         value={data.status === 1 ? 'active' : 'inactive'}
                         onValueChange={(value) => setData('status', value === 'active' ? 1 : 0)}
                      >
                         <SelectTrigger>
-                           <SelectValue placeholder={dashboard.select_approval_status} />
+                           <SelectValue placeholder={labels.selectStatus} />
                         </SelectTrigger>
                         <SelectContent>
-                           <SelectItem value="active">{common.active}</SelectItem>
-                           <SelectItem value="inactive">{common.inactive}</SelectItem>
+                           <SelectItem value="active">{labels.active}</SelectItem>
+                           <SelectItem value="inactive">{labels.inactive}</SelectItem>
                         </SelectContent>
                      </Select>
                      <InputError message={errors.status} />
                   </div>
 
                   <LoadingButton loading={processing} className="w-full">
-                     {button.submit}
+                     {labels.submit}
                   </LoadingButton>
                </form>
             </DialogHeader>

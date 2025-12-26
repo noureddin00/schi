@@ -16,6 +16,9 @@ interface Props extends SharedData {
 
 const Index = (props: Props) => {
    const [sorting, setSorting] = React.useState<SortingState>([]);
+   const labels = {
+      title: props.translate?.dashboard?.user_list || 'قائمة المستخدمين',
+   };
 
    const table = useReactTable({
       data: props.users.data,
@@ -31,7 +34,7 @@ const Index = (props: Props) => {
       <Card>
          <TableFilter
             data={props.users}
-            title="User List"
+            title={labels.title}
             globalSearch={true}
             tablePageSizes={[10, 15, 20, 25]}
             routeName="users.index"

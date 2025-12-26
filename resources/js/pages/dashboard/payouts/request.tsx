@@ -14,8 +14,12 @@ interface Props extends SharedData {
 }
 
 const Request = ({ payouts, translate }: Props) => {
-   const { dashboard } = translate;
-   
+   const { dashboard = {} } = translate || {};
+   const labels = {
+      title: dashboard?.payout_request || 'طلبات السحب',
+      noResults: dashboard?.no_results || 'لا توجد نتائج',
+   };
+
    const table = useReactTable({
       data: payouts.data,
       columns: TableColumn(translate),
@@ -28,7 +32,7 @@ const Request = ({ payouts, translate }: Props) => {
       <Card>
          <TableFilter
             data={payouts}
-            title={dashboard.payout_request}
+            title={labels.title}
             globalSearch={true}
             tablePageSizes={[10, 15, 20, 25]}
             routeName="payouts.request.index"
@@ -49,7 +53,7 @@ const Request = ({ payouts, translate }: Props) => {
                   ))
                ) : (
                   <TableRow>
-                     <TableCell className="h-24 text-center">{dashboard.no_results}</TableCell>
+                     <TableCell className="h-24 text-center">{labels.noResults}</TableCell>
                   </TableRow>
                )}
             </TableBody>

@@ -22,6 +22,10 @@ const SectionForm = ({ title, section, handler }: Props) => {
    const { translate } = props;
    const { dashboard, input, button } = translate;
 
+   // Arabic fallbacks
+   const sectionTitleLabel = dashboard?.section_title || 'عنوان القسم';
+   const sectionPlaceholder = input?.section_title_placeholder || 'أدخل عنوان القسم';
+
    const { data, setData, post, put, errors, processing } = useForm({
       title: section ? section.title : '',
       sort: section ? section.sort : props.lastSectionSort + 1,
@@ -54,13 +58,13 @@ const SectionForm = ({ title, section, handler }: Props) => {
 
                <form onSubmit={handleSubmit} className="space-y-4 p-0.5">
                   <div>
-                     <Label>{dashboard.section_title}</Label>
+                     <Label>{sectionTitleLabel}</Label>
                      <Input
                         required
                         type="text"
                         name="title"
                         value={data.title}
-                        placeholder={input.section_title_placeholder}
+                        placeholder={sectionPlaceholder}
                         onChange={(e) => onHandleChange(e, setData)}
                      />
                      <InputError message={errors.title} />
@@ -69,11 +73,11 @@ const SectionForm = ({ title, section, handler }: Props) => {
                   <DialogFooter className="flex justify-end space-x-2 pt-4">
                      <DialogClose asChild>
                         <Button type="button" variant="outline">
-                           {button.close}
+                           {button?.close || 'إغلاق'}
                         </Button>
                      </DialogClose>
 
-                     <LoadingButton loading={processing}>{button.submit}</LoadingButton>
+                     <LoadingButton loading={processing}>{button?.submit || 'إرسال'}</LoadingButton>
                   </DialogFooter>
                </form>
             </ScrollArea>

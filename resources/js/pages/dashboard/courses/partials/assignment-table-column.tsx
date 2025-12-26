@@ -8,12 +8,31 @@ import { AlertCircle, CheckCircle, Clock, Eye, MoreVertical, Pencil } from 'luci
 import AssignmentForm from './forms/assignment-form';
 
 const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, enrollmentsCount: number): ColumnDef<CourseAssignment>[] => {
-   const { table, dashboard } = translate;
+   const { table, dashboard, common } = translate;
+
+   // Arabic fallback labels
+   const labels = {
+      assignmentDetails: dashboard?.assignment_details || 'تفاصيل المهمة',
+      total: 'Total',
+      passMark: 'Pass',
+      retakes: 'Retakes',
+      deadline: dashboard?.deadline || 'الموعد النهائي',
+      expired: common?.expired || 'منتهي',
+      lateSubmission: dashboard?.late_submission || 'التسليم المتأخر',
+      allowed: common?.allowed || 'مسموح',
+      notAllowed: common?.not_allowed || 'غير مسموح',
+      until: 'Until',
+      submissions: dashboard?.submissions || 'التقديمات',
+      of: 'of',
+      viewSubmissions: dashboard?.view_submissions || 'عرض التقديمات',
+      updateAssignment: dashboard?.update_assignment || 'تحديث المهمة',
+      action: table?.action || 'الإجراء',
+   };
 
    return [
       {
          accessorKey: 'title',
-         header: dashboard.assignment_details,
+         header: labels.assignmentDetails,
          cell: ({ row }) => {
             const assignment = row.original;
             return (
@@ -22,10 +41,10 @@ const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, en
                   <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-xs">
                      <span className="flex items-center gap-1">
                         <CheckCircle className="h-3 w-3" />
-                        Total: {assignment.total_mark}
+                        {labels.total}: {assignment.total_mark}
                      </span>
-                     <span className="flex items-center gap-1">Pass: {assignment.pass_mark}</span>
-                     <span className="flex items-center gap-1">Retakes: {assignment.retake}</span>
+                     <span className="flex items-center gap-1">{labels.passMark}: {assignment.pass_mark}</span>
+                     <span className="flex items-center gap-1">{labels.retakes}: {assignment.retake}</span>
                   </div>
                </div>
             );
@@ -33,7 +52,7 @@ const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, en
       },
       {
          accessorKey: 'deadline',
-         header: dashboard.deadline,
+         header: labels.deadline,
          cell: ({ row }) => {
             const deadline = row.getValue('deadline') as string;
             const isExpired = new Date() > new Date(deadline);
@@ -53,7 +72,7 @@ const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, en
                   </div>
                   {isExpired && (
                      <Badge variant="destructive" className="mt-1 text-xs">
-                        Expired
+                        {labels.expired}
                      </Badge>
                   )}
                </div>
@@ -62,16 +81,16 @@ const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, en
       },
       {
          accessorKey: 'allow_late_submission',
-         header: () => <div className="text-center">{dashboard.late_submission}</div>,
+         header: () => <div className="text-center">{labels.lateSubmission}</div>,
          cell: ({ row }) => {
             const assignment = row.original;
             const lateAllowed = assignment.late_submission;
 
             return (
                <div className="py-2 text-center">
-                  <Badge variant={lateAllowed ? 'default' : 'secondary'}>{lateAllowed ? 'Allowed' : 'Not Allowed'}</Badge>
+                  <Badge variant={lateAllowed ? 'default' : 'secondary'}>{lateAllowed ? labels.allowed : labels.notAllowed}</Badge>
                   {lateAllowed && assignment.late_deadline && (
-                     <div className="text-muted-foreground mt-1 text-xs">Until: {format(new Date(assignment.late_deadline), 'MMM dd')}</div>
+                     <div className="text-muted-foreground mt-1 text-xs">{labels.until}: {format(new Date(assignment.late_deadline), 'MMM dd')}</div>
                   )}
                </div>
             );
@@ -79,7 +98,7 @@ const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, en
       },
       {
          accessorKey: 'submissions',
-         header: () => <div className="text-center">{dashboard.submissions}</div>,
+         header: () => <div className="text-center">{labels.submissions}</div>,
          cell: ({ row }) => {
             const assignment = row.original;
             const totalSubmissions = assignment.submissions?.length || 0;
@@ -88,7 +107,7 @@ const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, en
 
             return (
                <div className="py-2 text-center">
-                  <span className="font-semibold">{totalSubmissions}</span> of <span className="font-semibold">{enrollmentsCount}</span>
+                  <span className="font-semibold">{totalSubmissions}</span> {labels.of} <span className="font-semibold">{enrollmentsCount}</span>
                   {/* <div className="flex items-center justify-center gap-1">
                      <Users className="text-primary h-4 w-4" />
                      <span className="text-lg font-semibold">{totalSubmissions}</span>
@@ -103,7 +122,7 @@ const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, en
       },
       {
          id: 'actions',
-         header: () => <div className="text-end">{table.action}</div>,
+         header: () => <div className="text-end">{labels.action}</div>,
          cell: ({ row }) => {
             const assignment = row.original;
 
@@ -127,16 +146,16 @@ const AssignmentTableColumn = (slug: string, translate: LanguageTranslations, en
                               className="flex w-full cursor-pointer items-center gap-2"
                            >
                               <Eye className="h-4 w-4" />
-                              <span>View Submissions</span>
+                              <span>{labels.viewSubmissions}</span>
                            </Link>
                         </DropdownMenuItem>
                         <AssignmentForm
-                           title={'Update Assignment'}
+                           title={labels.updateAssignment}
                            assignment={assignment}
                            handler={
                               <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="flex w-full cursor-pointer items-center gap-2">
                                  <Pencil className="h-4 w-4" />
-                                 <span>Update Assignment</span>
+                                 <span>{labels.updateAssignment}</span>
                               </DropdownMenuItem>
                            }
                         />

@@ -26,7 +26,9 @@ const CourseCard7 = ({ course, watch_history, completion, className }: Props) =>
                className="h-full w-full object-cover"
                onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/assets/images/blank-image.jpg';
+                  if (target.src !== '/assets/images/blank-image.jpg') {
+                     target.src = '/assets/images/blank-image.jpg';
+                  }
                }}
             />
          </CardHeader>

@@ -26,6 +26,23 @@ const AssignmentForm = ({ title, assignment, handler }: Props) => {
    const { translate } = props;
    const { dashboard, input, button } = translate;
 
+   // Arabic fallback labels
+   const labels = {
+      title: input?.title || 'العنوان',
+      totalMark: dashboard?.total_mark || 'الدرجة الكلية',
+      passMark: dashboard?.pass_mark || 'درجة النجاح',
+      retakeAttempts: input?.retake_attempts || 'محاولات إعادة الاختبار',
+      deadline: dashboard?.deadline || 'الموعد النهائي',
+      summary: dashboard?.summary || 'الملخص',
+      enterAssignmentTitle: dashboard?.enter_assignment_title || 'أدخل عنوان المهمة',
+      summaryPlaceholder: input?.description_placeholder || 'أدخل الوصف',
+      lateSubmission: dashboard?.late_submission || 'التسليم المتأخر',
+      lateDeadline: dashboard?.late_deadline || 'الموعد النهائي للتسليم المتأخر',
+      lateTotalMark: dashboard?.late_total_mark || 'الدرجة الكلية للتسليم المتأخر',
+      submit: button?.submit || 'إرسال',
+      cancel: button?.cancel || 'إلغاء',
+   };
+
    const { data, setData, post, put, reset, errors, processing } = useForm({
       title: assignment?.title || '',
       course_id: props.course.id,
@@ -71,37 +88,37 @@ const AssignmentForm = ({ title, assignment, handler }: Props) => {
 
                <form onSubmit={handleSubmit} className="space-y-4 p-0.5">
                   <div>
-                     <Label>{input.title}</Label>
+                     <Label>{labels.title}</Label>
                      <Input
                         required
                         type="text"
                         name="title"
                         value={data.title}
-                        placeholder={dashboard.enter_assignment_title}
+                        placeholder={labels.enterAssignmentTitle}
                         onChange={(e) => onHandleChange(e, setData)}
                      />
                      <InputError message={errors.title} />
                   </div>
 
                   <div>
-                     <Label>{dashboard.deadline}</Label>
+                     <Label>{labels.deadline}</Label>
                      <DateTimePicker date={data.deadline} setDate={(date) => setData('deadline', date)} />
                      <InputError message={errors.deadline} />
                   </div>
 
                   <div className="grid grid-cols-3 gap-4">
                      <div>
-                        <Label>{dashboard.total_mark}</Label>
+                        <Label>{labels.totalMark}</Label>
                         <Input required type="number" name="total_mark" value={data.total_mark} onChange={(e) => onHandleChange(e, setData)} />
                         <InputError message={errors.total_mark} />
                      </div>
                      <div>
-                        <Label>{dashboard.pass_mark}</Label>
+                        <Label>{labels.passMark}</Label>
                         <Input required type="number" name="pass_mark" value={data.pass_mark} onChange={(e) => onHandleChange(e, setData)} />
                         <InputError message={errors.pass_mark} />
                      </div>
                      <div>
-                        <Label>{input.retake_attempts}</Label>
+                        <Label>{labels.retakeAttempts}</Label>
                         <Input
                            min="1"
                            required
@@ -116,12 +133,12 @@ const AssignmentForm = ({ title, assignment, handler }: Props) => {
                   </div>
 
                   <div>
-                     <Label htmlFor="summary">{dashboard.summary}</Label>
+                     <Label htmlFor="summary">{labels.summary}</Label>
                      <Editor
                         ssr={true}
                         output="html"
                         placeholder={{
-                           paragraph: dashboard.type_assignment_summary,
+                           paragraph: labels.summaryPlaceholder,
                            imageCaption: 'Type caption for image (optional)',
                         }}
                         contentMinHeight={256}
@@ -149,26 +166,26 @@ const AssignmentForm = ({ title, assignment, handler }: Props) => {
                         }
                      />
                      <Label htmlFor="late_submission" className="cursor-pointer">
-                        {dashboard.allow_late_submission}
+                        {labels.lateSubmission}
                      </Label>
                   </div>
 
                   {data.late_submission && (
                      <>
                         <div>
-                           <Label>{dashboard.late_submission_mark}</Label>
+                           <Label>{labels.lateTotalMark}</Label>
                            <Input
                               type="number"
                               name="late_total_mark"
                               value={data.late_total_mark}
-                              placeholder={dashboard.enter_marks_late}
+                              placeholder={labels.lateTotalMark}
                               onChange={(e) => onHandleChange(e, setData)}
                            />
                            <InputError message={errors.late_total_mark} />
                         </div>
 
                         <div>
-                           <Label>{dashboard.late_submission_deadline}</Label>
+                           <Label>{labels.lateDeadline}</Label>
                            <DateTimePicker
                               date={data.late_deadline ? new Date(data.late_deadline) : new Date()}
                               setDate={(date) => setData('late_deadline', date)}
@@ -181,11 +198,11 @@ const AssignmentForm = ({ title, assignment, handler }: Props) => {
                   <DialogFooter className="flex justify-end space-x-2 pt-4">
                      <DialogClose asChild>
                         <Button type="button" variant="outline">
-                           {button.close}
+                           {labels.cancel}
                         </Button>
                      </DialogClose>
 
-                     <LoadingButton loading={processing}>{button.submit}</LoadingButton>
+                     <LoadingButton loading={processing}>{labels.submit}</LoadingButton>
                   </DialogFooter>
                </form>
             </ScrollArea>

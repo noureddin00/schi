@@ -14,11 +14,15 @@ interface Props extends SharedData {
 }
 
 const Online = ({ payments, translate }: Props) => {
-   const { dashboard } = translate;
+   const { dashboard = {} } = translate || {};
+   const labels = {
+      title: translate?.dashboard?.online_payment_report || 'تقرير المدفوعات عبر الإنترنت',
+      noResults: dashboard?.no_results || 'لا توجد نتائج',
+   };
 
    const table = useReactTable({
       data: payments.data,
-      columns: TableColumn(),
+      columns: TableColumn(translate),
       getCoreRowModel: getCoreRowModel(),
       getSortedRowModel: getSortedRowModel(),
       getFilteredRowModel: getFilteredRowModel(),
@@ -28,7 +32,7 @@ const Online = ({ payments, translate }: Props) => {
       <Card>
          <TableFilter
             data={payments}
-            title="Online Payment Report"
+            title={labels.title}
             globalSearch={true}
             tablePageSizes={[10, 15, 20, 25, 50]}
             routeName="payment-reports.online.index"
@@ -50,7 +54,7 @@ const Online = ({ payments, translate }: Props) => {
                ) : (
                   <TableRow>
                      <TableCell colSpan={7} className="h-24 text-center">
-                        {dashboard.no_results}
+                        {labels.noResults}
                      </TableCell>
                   </TableRow>
                )}

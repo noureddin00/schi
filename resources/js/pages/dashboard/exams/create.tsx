@@ -65,7 +65,7 @@ const CreateExam = (props: Props) => {
    }, [categories]);
 
    const transformedInstructors = useMemo(() => {
-      return instructors.map((instructor) => ({
+      return instructors?.filter((instructor) => instructor.user !== null).map((instructor) => ({
          label: instructor.user.name,
          value: instructor.id.toString(),
       }));

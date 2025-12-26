@@ -2,7 +2,9 @@ import Tabs from '@/components/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { CourseUpdateProps } from '../update';
 import ResourceForm from './forms/resource-form';
 import ResourceList from './resource-list';
 
@@ -16,6 +18,9 @@ interface Props {
 const ResourceModal = ({ title, handler, lesson, resource }: Props) => {
    const [open, setOpen] = useState(false);
    const [isSubmit, setIsSubmit] = useState(false);
+   const { props } = usePage<CourseUpdateProps>();
+   const { translate } = props;
+   const { dashboard } = translate;
 
    return (
       <Dialog open={open} onOpenChange={setOpen}>
@@ -30,10 +35,10 @@ const ResourceModal = ({ title, handler, lesson, resource }: Props) => {
                <Tabs defaultValue="list">
                   <TabsList className="h-11 w-full">
                      <TabsTrigger value="list" className="h-9 w-full">
-                        Resource List
+                        {dashboard.resource_list}
                      </TabsTrigger>
                      <TabsTrigger value="add" className="h-9 w-full">
-                        Add Resource
+                        {dashboard.add_resource}
                      </TabsTrigger>
                   </TabsList>
 

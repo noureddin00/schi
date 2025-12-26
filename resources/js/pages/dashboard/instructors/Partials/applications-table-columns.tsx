@@ -7,7 +7,13 @@ import { ArrowUpDown, Edit } from 'lucide-react';
 import ApplicationApproval from './application-approval';
 
 const ApplicationsTableColumn = (translate: LanguageTranslations): ColumnDef<Instructor>[] => {
-   const { table } = translate;
+   const { table = {}, dashboard = {}, common = {} } = translate || {};
+
+   const statusTranslations: Record<string, string> = {
+      approved: dashboard?.approved || common?.approved || 'موافق عليه',
+      rejected: dashboard?.rejected || common?.rejected || 'مرفوض',
+      pending: dashboard?.pending || common?.pending || 'قيد الانتظار',
+   };
 
    return [
       {
@@ -24,7 +30,7 @@ const ApplicationsTableColumn = (translate: LanguageTranslations): ColumnDef<Ins
          },
          cell: ({ row }) => (
             <div className="capitalize">
-               <p>{row.original.user.name}</p>
+               <p>{row.original.user?.name || 'N/A'}</p>
             </div>
          ),
       },
@@ -56,7 +62,7 @@ const ApplicationsTableColumn = (translate: LanguageTranslations): ColumnDef<Ins
          header: table.status,
          cell: ({ row }) => (
             <div className="capitalize">
-               <span>{row.original.status}</span>
+               <span>{statusTranslations[row.original.status] || row.original.status}</span>
             </div>
          ),
       },

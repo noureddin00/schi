@@ -22,9 +22,10 @@ const CourseUpdateHeader = () => {
    const { approve_able, validation_messages, counts } = approvalStatus;
 
    const statusTranslations: Record<string, string> = {
-      approved: dashboard.approved || 'Approved',
-      rejected: dashboard.rejected || 'Rejected',
-      pending: dashboard.pending || 'Pending',
+      approved: dashboard?.approved || 'موافق عليه',
+      rejected: dashboard?.rejected || 'مرفوض',
+      pending: dashboard?.pending || 'قيد الانتظار',
+      draft: dashboard?.draft || common?.draft || 'مسودة',
    };
 
    const { data, put, setData, processing, errors, reset } = useForm({
@@ -78,7 +79,7 @@ const CourseUpdateHeader = () => {
             className={cn('capitalize', course.status === 'approved' ? 'bg-green-500' : course.status === 'rejected' ? 'bg-red-500' : 'bg-gray-500')}
             disabled
          >
-            {course.status === 'approved' ? dashboard.approved : course.status === 'rejected' ? dashboard.rejected : course.status === 'pending' ? dashboard.pending : course.status}
+            {statusTranslations[course.status] || course.status}
          </Button>
 
          {user.role === 'instructor' &&
@@ -147,7 +148,7 @@ const CourseUpdateHeader = () => {
                            <SelectContent>
                               {statuses.map((status) => (
                                  <SelectItem key={status} value={status}>
-                                    {status}
+                                    {statusTranslations[status] || status}
                                  </SelectItem>
                               ))}
                            </SelectContent>

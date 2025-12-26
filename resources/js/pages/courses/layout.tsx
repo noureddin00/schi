@@ -60,12 +60,12 @@ const Layout = ({ children }: { children: ReactNode }) => {
          <div className="course-search-hero py-12 md:py-16">
             <div className="container relative z-10">
                <div className="mx-auto max-w-3xl text-center">
-                  <h1 className="course-hero-title mb-6 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl">
-                     <span className="course-primary-word inline-block bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                  <h1 className="course-hero-title course-hero-gradient mb-6 text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl">
+                     <span className="course-primary-word inline-block">
                         {(frontend.courses || 'الدورات')}
                      </span>
                      {' '}
-                     <span className="course-secondary-word inline-block text-foreground">
+                     <span className="course-secondary-word inline-block">
                         {category || categoryChild ? category?.title || categoryChild?.title : frontend.all || 'الكل'}
                      </span>
                   </h1>

@@ -60,5 +60,5 @@ return [
     'verify_email_button' => 'Verify Email Address',
     'verification_expire' => 'This verification link will expire in 5 minutes.',
     'no_account_required' => 'If you did not create an account, no further action is required.',
-    'thanks' => 'Thanks',,
+    'thanks' => 'Thanks',
 ];
