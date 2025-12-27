@@ -148,7 +148,16 @@ return [
   'razorpay_settings' => 'Razorpay Settings',
   'sslcommerz_settings' => 'SSLCommerz Settings',
   'paytm_settings' => 'Paytm Settings',
+  'offline_payment_settings' => 'Offline Payment Settings',
   'configure_payment_gateway' => 'Configure :gateway payment gateway',
+  'configure_manual_payment' => 'Configure manual payment options for your students',
+  'payment_instructions' => 'Payment Instructions',
+  'for_student' => 'for student',
+  'payment_details' => 'Payment Details',
+  'offline_payment_instructions_help' => 'These instructions will be shown to students when they select offline payment',
+  'payment_details_help' => 'These payment/bank details will be displayed to students for making offline payments',
+  'important_notice' => 'Important Notice',
+  'offline_payment_notice' => 'Offline payments require manual verification. You will need to approve each payment in the Payment History section before the student can access the course.',
 
   // Environment Settings
   'test_mode' => 'Test Mode',
@@ -305,10 +314,15 @@ return [
   // Live Class Settings
   'configure_zoom' => 'Configure Zoom Server-to-Server OAuth Credentials',
   'zoom_setup_guide' => 'Zoom Setup Guide',
-  'setup_instructions' => 'Follow these steps to set up Zoom integration:',
-  'create_zoom_app' => 'Create a Server-to-Server OAuth app in Zoom Marketplace',
-  'get_credentials' => 'Get your Account ID, Client ID, and Client Secret',
-  'configure_scopes' => 'Configure the required scopes for your app',
+  'setup_instructions' => 'Setup Instructions',
+  'step_1_create_zoom_app' => 'Step 1: Create Zoom App',
+  'step_1_description' => 'Go to the Zoom Marketplace and create a Server-to-Server OAuth app.',
+  'step_2_get_credentials' => 'Step 2: Get Credentials',
+  'step_2_description' => 'Copy your Account ID, Client ID, and Client Secret from your app settings.',
+  'step_3_web_sdk' => 'Step 3: Web SDK (Optional)',
+  'step_3_description' => 'If you want to embed Zoom meetings directly in your website, enable Web SDK and provide Meeting SDK credentials.',
+  'required_scopes' => 'Required Scopes',
+  'meeting_sdk_credentials' => 'Meeting SDK Credentials',
 
   // Translation Editor
   'no_additional_languages' => 'No additional languages configured. Add languages from Settings → Languages.',

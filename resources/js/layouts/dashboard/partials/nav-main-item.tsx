@@ -45,19 +45,19 @@ const NavMainItem = (props: NavMainItemProps) => {
          >
             <AccordionTrigger
                className={cn(
-                  'h-9 cursor-pointer py-0 pr-2 font-normal hover:no-underline',
+                  'h-9 cursor-pointer py-0 pr-2 font-semibold hover:no-underline',
                   compact && '[&>svg]:hidden',
                   direction === 'rtl' && 'pr-0',
                )}
             >
                <SidebarMenuButton
                   className={cn(
-                     'cursor-pointer hover:bg-transparent active:bg-transparent',
+                     'cursor-pointer hover:bg-transparent active:bg-transparent font-semibold',
                      activeAccordion(slug) && 'hover:text-secondary-foreground active:text-secondary-foreground',
                   )}
                >
                   <Icon className="h-4 w-4" />
-                  <span>{name}</span>
+                  <span className="font-semibold">{name}</span>
                </SidebarMenuButton>
             </AccordionTrigger>
          </div>
@@ -66,7 +66,7 @@ const NavMainItem = (props: NavMainItemProps) => {
             {children.map(({ path, name, slug, access }, index: number) => {
                if (access.includes(auth.user.role)) {
                   return (
-                     <SidebarMenuButton asChild key={index} isActive={activeChildRoute(pageRoute.slug, slug)} className="h-9 px-3">
+                     <SidebarMenuButton asChild key={index} isActive={activeChildRoute(pageRoute.slug, slug)} className="h-9 px-3 font-normal">
                         <Link href={path} prefetch>
                            <Dot className="w-12" />
                            <span className="text-sm font-normal capitalize">{name}</span>
@@ -82,7 +82,7 @@ const NavMainItem = (props: NavMainItemProps) => {
          asChild
          isActive={activeRoute(slug)}
          className={cn(
-            'h-9',
+         'h-9 font-semibold',
             activeRoute(slug)
                ? 'data-[active=true]:bg-secondary data-[active=true]:text-secondary-foreground data-[active=true]:hover:bg-secondary-light'
                : '',
@@ -90,7 +90,7 @@ const NavMainItem = (props: NavMainItemProps) => {
       >
          <Link href={path} prefetch>
             <Icon className="h-4 w-4" />
-            <span>{name}</span>
+            <span className="font-semibold">{name}</span>
          </Link>
       </SidebarMenuButton>
    );

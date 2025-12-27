@@ -66,7 +66,8 @@ class SettingsService extends MediaService
 
             // Remove multiple fields at once
             $filteredData = Arr::except($data, [
-                'new_logo',
+                'new_logo_dark',
+                'new_logo_light',
                 'new_favicon',
                 'new_banner'
             ]);

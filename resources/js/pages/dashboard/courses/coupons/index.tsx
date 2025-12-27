@@ -20,7 +20,7 @@ interface Props {
 const CouponsIndex = ({ coupons, courses }: Props) => {
    const pageProps = usePage<Props>().props;
    const { translate } = pageProps;
-   const { dashboard, button } = translate || {};
+   const { dashboard = {}, button = {} } = translate || {};
    const [sorting, setSorting] = React.useState<SortingState>([]);
 
    const table = useReactTable({
@@ -35,21 +35,21 @@ const CouponsIndex = ({ coupons, courses }: Props) => {
 
    return (
       <>
-         <Head title="Course Coupons" />
+         <Head title={dashboard.course_coupons || 'قسائم الدورات'} />
 
          <div className="space-y-6">
             <div className="flex items-center justify-between">
                <div>
-                  <h1 className="text-3xl font-bold text-gray-900">{dashboard?.course_coupons || 'قسائم الدورات'}</h1>
-                  <p className="mt-1 text-sm text-gray-600">{dashboard?.manage_course_coupons || 'إدارة قسائم الخصم لدوراتك'}</p>
+                  <h1 className="text-3xl font-bold text-gray-900">{dashboard.course_coupons || 'قسائم الدورات'}</h1>
+                  <p className="mt-1 text-sm text-gray-600">{dashboard.manage_course_coupons || 'إدارة قسائم الخصم لدوراتك'}</p>
                </div>
                <CouponForm
-                  title={dashboard?.create_coupon || 'إنشاء قسيمة'}
+                  title={dashboard.create_coupon || 'إنشاء قسيمة'}
                   courses={courses}
                   handler={
                      <Button>
                         <Plus className="mr-2 h-4 w-4" />
-                        {button?.add_coupon || 'إضافة قسيمة'}
+                        {button.add_coupon || 'إضافة قسيمة'}
                      </Button>
                   }
                />
@@ -58,7 +58,7 @@ const CouponsIndex = ({ coupons, courses }: Props) => {
             <Card>
                <TableFilter
                   data={coupons}
-                  title={dashboard?.coupon_list || 'قائمة القسائم'}
+                  title={dashboard.coupon_list || 'قائمة القسائم'}
                   globalSearch={true}
                   tablePageSizes={[10, 15, 20, 25]}
                   routeName="Course-coupons.index"
@@ -79,7 +79,7 @@ const CouponsIndex = ({ coupons, courses }: Props) => {
                      ) : (
                         <TableRow>
                            <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
-                              {dashboard?.no_coupons_found || 'لم يتم العثور على قسائم.'}
+                              {dashboard.no_coupons_found || 'لم يتم العثور على قسائم.'}
                            </TableCell>
                         </TableRow>
                      )}

@@ -21,7 +21,7 @@ interface OfflineProps {
 const Offline = ({ payment }: OfflineProps) => {
    const { props } = usePage<SharedData>();
    const { translate } = props;
-   const { button, common } = translate;
+   const { button = {}, common = {}, settings = {}, input = {} } = translate || {};
    const { data, setData, post, errors, processing } = useForm({
       ...(payment.fields as OfflineFields),
       type: 'offline',
@@ -36,8 +36,8 @@ const Offline = ({ payment }: OfflineProps) => {
       <Card className="p-4 sm:p-6">
          <div className="mb-6 flex items-center justify-between">
             <div>
-               <h2 className="text-xl font-semibold">Offline Payment Settings</h2>
-               <p className="text-gray-500">Configure manual payment options for your students</p>
+               <h2 className="text-xl font-semibold">{settings.offline_payment_settings || 'إعدادات الدفع غير المتصل'}</h2>
+               <p className="text-gray-500">{settings.configure_manual_payment || 'تكوين خيارات الدفع اليدوي للطلاب'}</p>
             </div>
 
             <div className="flex items-center space-x-2">
@@ -49,13 +49,13 @@ const Offline = ({ payment }: OfflineProps) => {
          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
                <Label>
-                  Payment Instructions <span className="font-light">(for student)</span>
+                  {settings.payment_instructions || 'تعليمات الدفع'} <span className="font-light">({settings.for_student || 'للطالب'})</span>
                </Label>
                <Editor
                   output="html"
                   placeholder={{
-                     paragraph: 'Enter instructions here...',
-                     imageCaption: 'Enter image caption here...',
+                     paragraph: input.enter_instructions_here || 'أدخل التعليمات هنا...',
+                     imageCaption: input.enter_image_caption || 'أدخل تسمية توضيحية للصورة...',
                   }}
                   contentMinHeight={260}
                   contentMaxHeight={600}
@@ -63,18 +63,18 @@ const Offline = ({ payment }: OfflineProps) => {
                   onContentChange={(value) => setData('payment_instructions', value as string)}
                />
                <InputError message={errors.payment_instructions} />
-               <p className="mt-1 text-sm text-gray-500">These instructions will be shown to students when they select offline payment</p>
+               <p className="mt-1 text-sm text-gray-500">{settings.offline_payment_instructions_help || 'سيتم عرض هذه التعليمات للطلاب عند اختيار الدفع غير المتصل'}</p>
             </div>
 
             {/* Bank Details Section */}
 
             <div>
-               <Label>Payment Details</Label>
+               <Label>{settings.payment_details || 'تفاصيل الدفع'}</Label>
                <Editor
                   output="html"
                   placeholder={{
-                     paragraph: 'Enter payment details here...',
-                     imageCaption: 'Enter image caption here...',
+                     paragraph: input.enter_payment_details || 'أدخل تفاصيل الدفع هنا...',
+                     imageCaption: input.enter_image_caption || 'أدخل تسمية توضيحية للصورة...',
                   }}
                   contentMinHeight={260}
                   contentMaxHeight={600}
@@ -82,7 +82,7 @@ const Offline = ({ payment }: OfflineProps) => {
                   onContentChange={(value) => setData('payment_details', value as string)}
                />
                <InputError message={errors.payment_details} />
-               <p className="mt-1 text-sm text-gray-500">These payment/bank details will be displayed to students for making offline payments</p>
+               <p className="mt-1 text-sm text-gray-500">{settings.payment_details_help || 'سيتم عرض تفاصيل الدفع/البنك هذه للطلاب لإجراء الدفعات غير المتصلة'}</p>
             </div>
 
             <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-4">
@@ -95,10 +95,9 @@ const Offline = ({ payment }: OfflineProps) => {
                      />
                   </svg>
                   <div className="text-sm text-yellow-800">
-                     <p className="mb-1 font-medium">Important Notice</p>
+                     <p className="mb-1 font-medium">{settings.important_notice || 'إشعار مهم'}</p>
                      <p>
-                        Offline payments require manual verification. You will need to approve each payment in the Payment History section before the
-                        student can access the course.
+                        {settings.offline_payment_notice || 'تتطلب المدفوعات غير المتصلة تحققاً يدوياً. ستحتاج إلى الموافقة على كل دفعة في قسم سجل الدفع قبل أن يتمكن الطالب من الوصول إلى الدورة.'}
                      </p>
                   </div>
                </div>

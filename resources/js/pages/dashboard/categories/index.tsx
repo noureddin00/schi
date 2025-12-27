@@ -30,7 +30,7 @@ const Index = (props: Props) => {
    return (
       <div>
          <div className="flex items-center gap-6">
-            <CategoryForm title={dashboard.add_category} handler={<Button>{dashboard.add_category}</Button>} lastPosition={lastPosition} />
+            <CategoryForm title={dashboard.add_category} handler={<Button>{dashboard.add_category || 'إنشاء فئة'}</Button>} lastPosition={lastPosition} />
 
             <DataSortModal
                title={dashboard.sort_categories}
@@ -116,7 +116,7 @@ const Index = (props: Props) => {
                      
                      <div className="relative z-10">
                         <div className="relative text-center">
-                           <div className="flex items-center gap-3">
+                           <div className="flex items-center gap-3 pt-12">
                               {category.thumbnail ? (
                                  <img
                                     src={category.thumbnail}
@@ -131,7 +131,7 @@ const Index = (props: Props) => {
                               <h2 className="font-semibold">{category.title}</h2>
                            </div>
 
-                           <div className="absolute -top-1 right-0 space-x-1">
+                           <div className="absolute -top-1 left-0 space-x-1">
                            <CategoryForm
                               title={dashboard.update_category}
                               category={category}
@@ -167,7 +167,7 @@ const Index = (props: Props) => {
                                  <p>{child.title}</p>
                               </div>
 
-                              <div className="absolute top-0 right-0 flex items-center gap-1">
+                              <div className="absolute top-0 left-0 flex items-center gap-1">
                                  <AddCategoryChild
                                     categoryChild={child}
                                     categoryId={Number(category.id)}

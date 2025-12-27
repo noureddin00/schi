@@ -148,7 +148,16 @@ return [
   'razorpay_settings' => 'إعدادات Razorpay',
   'sslcommerz_settings' => 'إعدادات SSLCommerz',
   'paytm_settings' => 'إعدادات Paytm',
+  'offline_payment_settings' => 'إعدادات الدفع غير المتصل',
   'configure_payment_gateway' => 'تكوين بوابة الدفع :gateway',
+  'configure_manual_payment' => 'تكوين خيارات الدفع اليدوي للطلاب',
+  'payment_instructions' => 'تعليمات الدفع',
+  'for_student' => 'للطالب',
+  'payment_details' => 'تفاصيل الدفع',
+  'offline_payment_instructions_help' => 'سيتم عرض هذه التعليمات للطلاب عند اختيار الدفع غير المتصل',
+  'payment_details_help' => 'سيتم عرض تفاصيل الدفع/البنك هذه للطلاب لإجراء الدفعات غير المتصلة',
+  'important_notice' => 'إشعار مهم',
+  'offline_payment_notice' => 'تتطلب المدفوعات غير المتصلة تحققاً يدوياً. ستحتاج إلى الموافقة على كل دفعة في قسم سجل الدفع قبل أن يتمكن الطالب من الوصول إلى الدورة.',
 
   // إعدادات البيئة
   'test_mode' => 'وضع الاختبار',
@@ -305,10 +314,15 @@ return [
   // إعدادات الدروس الحية
   'configure_zoom' => 'تكوين بيانات الاعتماد OAuth من الخادم إلى الخادم لزووم',
   'zoom_setup_guide' => 'دليل إعداد زووم',
-  'setup_instructions' => 'اتبع هذه الخطوات لإعداد تكامل زووم:',
-  'create_zoom_app' => 'إنشاء تطبيق OAuth من الخادم إلى الخادم في سوق زووم',
-  'get_credentials' => 'احصل على معرف حسابك، ومعرف العميل، والمفتاح السري للعميل',
-  'configure_scopes' => 'تكوين النطاقات المطلوبة لتطبيقك',
+  'setup_instructions' => 'تعليمات الإعداد',
+  'step_1_create_zoom_app' => 'الخطوة 1: إنشاء تطبيق زووم',
+  'step_1_description' => 'انتقل إلى سوق زووم وأنشئ تطبيق OAuth من الخادم إلى الخادم.',
+  'step_2_get_credentials' => 'الخطوة 2: احصل على بيانات الاعتماد',
+  'step_2_description' => 'انسخ معرف الحساب ومعرف العميل والمفتاح السري للعميل من إعدادات تطبيقك.',
+  'step_3_web_sdk' => 'الخطوة 3: SDK للويب (اختياري)',
+  'step_3_description' => 'إذا كنت تريد تضمين اجتماعات زووم مباشرةً في موقعك، قم بتمكين SDK للويب وتوفير بيانات اعتماد SDK للاجتماعات.',
+  'required_scopes' => 'النطاقات المطلوبة',
+  'meeting_sdk_credentials' => 'بيانات اعتماد SDK للاجتماعات',
 
   // محرر الترجمة
   'no_additional_languages' => 'لم يتم تكوين لغات إضافية. أضف لغات من الإعدادات ← اللغات.',

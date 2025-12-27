@@ -3,6 +3,7 @@ import Switch from '@/components/switch';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import ErrorBoundary from '@/components/error-boundary';
 import LandingLayout from '@/layouts/landing-layout';
 import { IntroPageProps } from '@/types/page';
 import { router, usePage } from '@inertiajs/react';
@@ -17,7 +18,8 @@ interface PageProps {
 
 const Layout = ({ page: innerPage, navbarHeight = true, children }: PageProps) => {
    const { props } = usePage<IntroPageProps>();
-   const { customize, translate } = props;
+   const { customize } = props;
+   const translate = (props as any)?.translate ?? {};
    const page = innerPage || props.page;
    const slug = page.slug;
    const customizable = slug === 'about-us' || slug === 'our-team' || page.type !== 'inner_page';
@@ -34,51 +36,53 @@ const Layout = ({ page: innerPage, navbarHeight = true, children }: PageProps) =
 
    return (
       <LandingLayout navbarHeight={navbarHeight} customizable={customizable}>
-         {customize ? (
-            <>
-               {customize && page && (
-                  <div className="fixed top-20 right-6 z-20">
-                     <DataSortModal
-                        title={translate?.dashboard?.page_settings || 'أقسام الصفحة'}
-                        data={sections}
-                        handler={
-                           <Button size="icon">
-                              <Settings className="h-7 w-7" />
-                           </Button>
-                        }
-                        onOrderChange={(newOrder, setOpen) => {
-                           router.post(
-                              route('page.section.sort'),
-                              {
-                                 sortedData: newOrder,
-                              },
-                              { preserveScroll: true, onSuccess: () => setOpen && setOpen(false) },
-                           );
-                        }}
-                        renderContent={(item) => (
-                           <Card className="flex w-full items-center justify-between px-4 py-3">
-                              <p>{item.name}</p>
+         <ErrorBoundary fallback={<div className="p-4 text-sm text-red-600">A runtime error occurred. Please refresh.</div>}>
+            {customize ? (
+               <>
+                  {customize && page && (
+                     <div className="fixed top-20 right-6 z-20">
+                        <DataSortModal
+                           title={translate?.dashboard?.page_settings || 'أقسام الصفحة'}
+                           data={sections}
+                           handler={
+                              <Button size="icon">
+                                 <Settings className="h-7 w-7" />
+                              </Button>
+                           }
+                           onOrderChange={(newOrder, setOpen) => {
+                              router.post(
+                                 route('page.section.sort'),
+                                 {
+                                    sortedData: newOrder,
+                                 },
+                                 { preserveScroll: true, onSuccess: () => setOpen && setOpen(false) },
+                              );
+                           }}
+                           renderContent={(item) => (
+                              <Card className="flex w-full items-center justify-between px-4 py-3">
+                                 <p>{item.name}</p>
 
-                              <div className="flex items-center space-x-2">
-                                 <Label htmlFor="active">Active</Label>
-                                 <Switch
-                                    id="active"
-                                    defaultChecked={item.active}
-                                    onCheckedChange={(checked) => sectionActiveChange(item.id, checked)}
-                                 />
-                              </div>
-                           </Card>
-                        )}
-                     />
-                  </div>
-               )}
+                                 <div className="flex items-center space-x-2">
+                                    <Label htmlFor="active">Active</Label>
+                                    <Switch
+                                       id="active"
+                                       defaultChecked={item.active}
+                                       onCheckedChange={(checked) => sectionActiveChange(item.id, checked)}
+                                    />
+                                 </div>
+                              </Card>
+                           )}
+                        />
+                     </div>
+                  )}
 
-               {/* Content */}
-               {children}
-            </>
-         ) : (
-            children
-         )}
+                  {/* Content */}
+                  {children}
+               </>
+            ) : (
+               children
+            )}
+         </ErrorBoundary>
       </LandingLayout>
    );
 };

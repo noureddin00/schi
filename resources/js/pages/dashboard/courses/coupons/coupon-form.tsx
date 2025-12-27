@@ -20,8 +20,8 @@ interface Props {
 }
 
 const CouponForm = ({ title, handler, coupon, courses }: Props) => {
-   const { translate } = usePage<SharedData>();
-   const { dashboard, button, input } = translate;
+   const { translate } = usePage<SharedData>().props;
+   const { dashboard = {}, button = {}, input = {} } = translate || {};
    const [open, setOpen] = useState(false);
 
    // Convert datetime from "2025-11-19 18:00:00" to "2025-11-19T18:00" for datetime-local input
@@ -89,21 +89,21 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
 
          <DialogContent className="max-w-2xl">
             <DialogHeader>
-               <DialogTitle>{title}</DialogTitle>
+               <DialogTitle>{title || dashboard.create_coupon || 'إنشاء قسيمة'}</DialogTitle>
             </DialogHeader>
 
             <form onSubmit={handleSubmit}>
                <div className="space-y-4 py-4">
                   <div className="grid grid-cols-2 gap-4">
                      <div className="col-span-2">
-                        <Label htmlFor="code">{dashboard.coupon_code} *</Label>
+                        <Label htmlFor="code">{dashboard.coupon_code || 'رمز القسيمة'} *</Label>
                         <div className="flex gap-2">
                            <Input
                               id="code"
                               name="code"
                               value={data.code}
                               onChange={(e) => setData('code', e.target.value.toUpperCase())}
-                              placeholder={dashboard.coupon_code_placeholder}
+                              placeholder={dashboard.coupon_code_placeholder || 'أدخل رمز القسيمة'}
                               required
                            />
                            <Button type="button" variant="outline" onClick={generateCode}>
@@ -114,21 +114,21 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div>
 
                      <div>
-                        <Label htmlFor="discount_type">{dashboard.discount_type} *</Label>
+                        <Label htmlFor="discount_type">{dashboard.discount_type || 'نوع الخصم'} *</Label>
                         <Select name="discount_type" value={data.discount_type} onValueChange={(value) => setData('discount_type', value as any)}>
                            <SelectTrigger>
-                              <SelectValue placeholder={input.select_option} />
+                              <SelectValue placeholder={input.select_option || 'اختر خياراً'} />
                            </SelectTrigger>
                            <SelectContent>
-                              <SelectItem value="percentage">{dashboard.discount_type_percentage}</SelectItem>
-                              <SelectItem value="fixed">{dashboard.discount_type_fixed}</SelectItem>
+                              <SelectItem value="percentage">{dashboard.discount_type_percentage || 'نسبة (%)'}</SelectItem>
+                              <SelectItem value="fixed">{dashboard.discount_type_fixed || 'مبلغ ثابت ($)'}</SelectItem>
                            </SelectContent>
                         </Select>
                         <InputError message={errors.discount_type} />
                      </div>
 
                      <div>
-                        <Label htmlFor="discount">{dashboard.discount_value} *</Label>
+                        <Label htmlFor="discount">{dashboard.discount_value || 'قيمة الخصم'} *</Label>
                         <Input
                            id="discount"
                            name="discount"
@@ -143,19 +143,19 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div>
 
                      <div className="col-span-2">
-                        <Label htmlFor="course_id">{dashboard.select_course}</Label>
+                        <Label htmlFor="course_id">{dashboard.select_course || 'اختر دورة'}</Label>
                         <Select
                            name="course_id"
                            value={data.course_id?.toString()}
                            onValueChange={(value) => setData('course_id', value ? parseInt(value) : '')}
                         >
                            <SelectTrigger>
-                              <SelectValue placeholder={dashboard.all_courses_global_coupon} />
+                              <SelectValue placeholder={dashboard.all_courses_global_coupon || 'جميع الدورات (قسيمة عامة)'} />
                            </SelectTrigger>
                            <SelectContent>
                               {courses.map((course) => (
                                  <SelectItem key={course.id} value={course.id.toString()}>
-                                    {course.title}
+                                    {course.title || dashboard.global_coupon || 'قسيمة عامة'}
                                  </SelectItem>
                               ))}
                            </SelectContent>
@@ -164,7 +164,7 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div>
 
                      <div>
-                        <Label htmlFor="valid_from">{dashboard.valid_from}</Label>
+                        <Label htmlFor="valid_from">{dashboard.valid_from || 'صالح من'}</Label>
                         <Input
                            id="valid_from"
                            name="valid_from"
@@ -176,7 +176,7 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div>
 
                      <div>
-                        <Label htmlFor="valid_to">{dashboard.valid_to}</Label>
+                        <Label htmlFor="valid_to">{dashboard.valid_to || 'صالح إلى'}</Label>
                         <Input
                            id="valid_to"
                            name="valid_to"
@@ -202,7 +202,7 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                      </div> */}
 
                      <div className="flex items-center justify-between">
-                        <Label htmlFor="is_active">{dashboard.active}</Label>
+                        <Label htmlFor="is_active">{dashboard.active || 'نشط'}</Label>
                         <Switch id="is_active" checked={data.is_active} onCheckedChange={(checked) => setData('is_active', checked)} />
                      </div>
                   </div>
@@ -211,11 +211,11 @@ const CouponForm = ({ title, handler, coupon, courses }: Props) => {
                <DialogFooter className="gap-2">
                   <DialogClose asChild>
                      <Button type="button" variant="outline">
-                        {button.cancel}
+                        {button.cancel || 'إلغاء'}
                      </Button>
                   </DialogClose>
                   <LoadingButton loading={processing} disabled={processing}>
-                     {coupon ? button.update : button.create}
+                     {coupon ? button.update || 'تحديث' : button.create || 'إنشاء'}
                   </LoadingButton>
                </DialogFooter>
             </form>

@@ -17,7 +17,7 @@ interface Props extends SharedData {
 const LiveClass = ({ liveClass }: Props) => {
    const { props } = usePage<SharedData>();
    const { translate } = props;
-   const { settings, input, button } = translate;
+   const { settings, input, button, common } = translate;
    const { data, setData, post, errors, processing } = useForm({
       ...liveClass.fields,
    });
@@ -66,7 +66,7 @@ const LiveClass = ({ liveClass }: Props) => {
                               type="email"
                               value={data.zoom_account_email}
                               onChange={(e) => setData('zoom_account_email', e.target.value)}
-                              placeholder={input.zoom_account_email_placeholder}
+                              placeholder={input.zoom_account_email_placeholder || 'أدخل بريد حساب زووم'}
                               required
                            />
                            {errors.zoom_account_email && <p className="text-sm text-red-500">{errors.zoom_account_email}</p>}
@@ -82,7 +82,7 @@ const LiveClass = ({ liveClass }: Props) => {
                               type="text"
                               value={data.zoom_account_id}
                               onChange={(e) => setData('zoom_account_id', e.target.value)}
-                              placeholder={input.zoom_account_id_placeholder}
+                              placeholder={input.zoom_account_id_placeholder || 'أدخل معرف حساب زووم'}
                               required
                            />
                            {errors.zoom_account_id && <p className="text-sm text-red-500">{errors.zoom_account_id}</p>}
@@ -98,7 +98,7 @@ const LiveClass = ({ liveClass }: Props) => {
                               type="text"
                               value={data.zoom_client_id}
                               onChange={(e) => setData('zoom_client_id', e.target.value)}
-                              placeholder={input.zoom_client_id_placeholder}
+                              placeholder={input.zoom_client_id_placeholder || 'أدخل معرف عميل زووم'}
                               required
                            />
                            {errors.zoom_client_id && <p className="text-sm text-red-500">{errors.zoom_client_id}</p>}
@@ -107,14 +107,14 @@ const LiveClass = ({ liveClass }: Props) => {
                         {/* Client Secret */}
                         <div className="space-y-2">
                            <Label htmlFor="zoom_client_secret">
-                              Client Secret <span className="text-red-500">*</span>
+                              {input.client_secret || 'المفتاح السري للعميل'} <span className="text-red-500">*</span>
                            </Label>
                            <Input
                               id="zoom_client_secret"
                               type="password"
                               value={data.zoom_client_secret}
                               onChange={(e) => setData('zoom_client_secret', e.target.value)}
-                              placeholder={input.zoom_client_secret_placeholder}
+                              placeholder={input.zoom_client_secret_placeholder || 'أدخل المفتاح السري لعميل زووم'}
                               required
                            />
                            {errors.zoom_client_secret && <p className="text-sm text-red-500">{errors.zoom_client_secret}</p>}
@@ -125,7 +125,7 @@ const LiveClass = ({ liveClass }: Props) => {
                         {/* Web SDK Option */}
                         <div className="space-y-4">
                            <Label>
-                              Do you want to use Web SDK for your live class? <span className="text-red-500">*</span>
+                              {input.do_you_want_use_web_sdk || 'هل تريد استخدام SDK للويب للدرس المباشر؟'} <span className="text-red-500">*</span>
                            </Label>
                            <RadioGroup
                               value={data.zoom_web_sdk ? 'activate' : 'deactivate'}
@@ -134,11 +134,11 @@ const LiveClass = ({ liveClass }: Props) => {
                            >
                               <div className="flex items-center space-x-2">
                                  <RadioGroupItem className="cursor-pointer" value="activate" id="activate" />
-                                 <Label htmlFor="activate">Yes</Label>
+                                 <Label htmlFor="activate">{common.yes || 'نعم'}</Label>
                               </div>
                               <div className="flex items-center space-x-2">
                                  <RadioGroupItem className="cursor-pointer" value="deactivate" id="deactivate" />
-                                 <Label htmlFor="deactivate">No</Label>
+                                 <Label htmlFor="deactivate">{common.no || 'لا'}</Label>
                               </div>
                            </RadioGroup>
                            {errors.zoom_web_sdk && <p className="text-sm text-red-500">{errors.zoom_web_sdk}</p>}
@@ -147,32 +147,32 @@ const LiveClass = ({ liveClass }: Props) => {
                         {/* Web SDK Credentials */}
                         {data.zoom_web_sdk && (
                            <div className="space-y-4 rounded-lg border bg-blue-50 p-4">
-                              <h4 className="font-medium text-blue-900">Meeting SDK Credentials</h4>
+                              <h4 className="font-medium text-blue-900">{settings.meeting_sdk_credentials || 'بيانات اعتماد SDK للاجتماعات'}</h4>
 
                               <div className="space-y-2">
                                  <Label>
-                                    Meeting SDK Client ID <span className="text-red-500">*</span>
+                                    {input.meeting_sdk_client_id || 'معرف عميل SDK للاجتماعات'} <span className="text-red-500">*</span>
                                  </Label>
                                  <Input
                                     required
                                     type="text"
                                     value={data.zoom_sdk_client_id}
                                     onChange={(e) => setData('zoom_sdk_client_id', e.target.value)}
-                                    placeholder="Enter your Meeting SDK client ID"
+                                    placeholder={input.meeting_sdk_client_id_placeholder || 'أدخل معرف عميل SDK للاجتماعات'}
                                  />
                                  {errors.zoom_sdk_client_id && <p className="text-sm text-red-500">{errors.zoom_sdk_client_id}</p>}
                               </div>
 
                               <div className="space-y-2">
                                  <Label>
-                                    Meeting SDK Client Secret <span className="text-red-500">*</span>
+                                    {input.meeting_sdk_client_secret || 'المفتاح السري لعميل SDK للاجتماعات'} <span className="text-red-500">*</span>
                                  </Label>
                                  <Input
                                     required
                                     type="password"
                                     value={data.zoom_sdk_client_secret}
                                     onChange={(e) => setData('zoom_sdk_client_secret', e.target.value)}
-                                    placeholder="Enter your Meeting SDK client secret"
+                                    placeholder={input.meeting_sdk_client_secret_placeholder || 'أدخل المفتاح السري لعميل SDK للاجتماعات'}
                                  />
                                  {errors.zoom_sdk_client_secret && <p className="text-sm text-red-500">{errors.zoom_sdk_client_secret}</p>}
                               </div>
@@ -181,7 +181,7 @@ const LiveClass = ({ liveClass }: Props) => {
 
                         {/* Submit Button */}
                         <Button type="submit" disabled={processing} className="w-full sm:w-auto">
-                           {processing ? 'Saving...' : 'Save Changes'}
+                           {processing ? button.saving || 'جاري الحفظ...' : settings.save_changes || button.save_changes || 'حفظ التغييرات'}
                         </Button>
                      </form>
                   </CardContent>
@@ -192,23 +192,23 @@ const LiveClass = ({ liveClass }: Props) => {
             <div className="space-y-6">
                <Card>
                   <CardHeader>
-                     <CardTitle className="text-lg">Setup Instructions</CardTitle>
+                     <CardTitle className="text-lg">{settings.setup_instructions || 'تعليمات الإعداد'}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                      <div>
-                        <h4 className="mb-2 font-medium">Step 1: Create Zoom App</h4>
-                        <p className="text-muted-foreground text-sm">Go to the Zoom Marketplace and create a Server-to-Server OAuth app.</p>
+                        <h4 className="mb-2 font-medium">{settings.step_1_create_zoom_app || 'الخطوة 1: إنشاء تطبيق زووم'}</h4>
+                        <p className="text-muted-foreground text-sm">{settings.step_1_description || 'انتقل إلى سوق زووم وأنشئ تطبيق OAuth من الخادم إلى الخادم.'}</p>
                      </div>
 
                      <div>
-                        <h4 className="mb-2 font-medium">Step 2: Get Credentials</h4>
-                        <p className="text-muted-foreground text-sm">Copy your Account ID, Client ID, and Client Secret from your app settings.</p>
+                        <h4 className="mb-2 font-medium">{settings.step_2_get_credentials || 'الخطوة 2: احصل على بيانات الاعتماد'}</h4>
+                        <p className="text-muted-foreground text-sm">{settings.step_2_description || 'انسخ معرف الحساب ومعرف العميل والمفتاح السري للعميل من إعدادات تطبيقك.'}</p>
                      </div>
 
                      <div>
-                        <h4 className="mb-2 font-medium">Step 3: Web SDK (Optional)</h4>
+                        <h4 className="mb-2 font-medium">{settings.step_3_web_sdk || 'الخطوة 3: SDK للويب (اختياري)'}</h4>
                         <p className="text-muted-foreground text-sm">
-                           If you want to embed Zoom meetings directly in your website, enable Web SDK and provide Meeting SDK credentials.
+                           {settings.step_3_description || 'إذا كنت تريد تضمين اجتماعات زووم مباشرةً في موقعك، قم بتمكين SDK للويب وتوفير بيانات اعتماد SDK للاجتماعات.'}
                         </p>
                      </div>
                   </CardContent>
@@ -216,7 +216,7 @@ const LiveClass = ({ liveClass }: Props) => {
 
                <Card>
                   <CardHeader>
-                     <CardTitle className="text-lg">Required Scopes</CardTitle>
+                     <CardTitle className="text-lg">{settings.required_scopes || 'النطاقات المطلوبة'}</CardTitle>
                   </CardHeader>
                   <CardContent>
                      <ul className="space-y-1 text-sm">

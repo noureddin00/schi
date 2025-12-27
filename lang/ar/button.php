@@ -53,6 +53,7 @@ return [
     'delete_class' => 'حذف الدرس',
     'class_note' => 'ملاحظة الدرس',
     'add_language' => 'إضافة لغة',
+    'add_coupon' => 'إضافة قسيمة',
     'save_changes' => 'حفظ التغييرات',
     'schedule_class' => 'جدولة الدرس',
     'add_newsletter' => 'إضافة النشرة الإخبارية',
@@ -236,4 +237,5 @@ return [
     'style' => 'الأسلوب',
     'edit_navbar' => 'تعديل شريط التنقل',
     'edit_footer' => 'تعديل التذييل',
+    'saving' => 'جاري الحفظ...',
 ];

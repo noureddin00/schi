@@ -17,7 +17,9 @@ interface Props {
 }
 
 const Payment = ({ payments }: Props) => {
-   const page = usePage();
+   const page = usePage<Props>();
+   const { translate } = page.props;
+   const { settings = {} } = translate || {};
    const params = getQueryParams(page.url);
 
    const tabs = payments.map((payment) => {
@@ -81,7 +83,7 @@ const Payment = ({ payments }: Props) => {
                            )
                         }
                      >
-                        {title}
+                        {settings[`${sub_type}_payment_settings`] || settings[`${sub_type}_settings`] || title}
                      </TabsTrigger>
                   ))}
                </TabsList>

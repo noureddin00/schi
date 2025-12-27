@@ -68,15 +68,18 @@ class HandleInertiaRequests extends Middleware
             $langs = Language::where('is_active', true)
                 ->orderBy('is_default', 'desc')
                 ->get();
-            $default = $langs->where('is_default', true)->first()->code;
+
+            $default = optional($langs->where('is_default', true)->first())->code ?? 'ar';
             config(['app.locale' => $default]);
+
             $locale = Cookie::get('locale', $default);
             App::setLocale($locale);
 
             $this->languageService->setLanguageProperties($locale);
         } else {
             $langs = [];
-            $locale = Cookie::get('locale', 'en');
+            $locale = Cookie::get('locale', 'ar');
+            App::setLocale($locale);
         }
 
             // Derive direction from the active locale by default. Allow system settings

@@ -1451,3 +1451,7 @@ a:hover {
 .header-action-language {
    display: none;
 }
+
+div[data-sidebar="group-label"] {
+   display: none
+}

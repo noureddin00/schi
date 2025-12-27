@@ -54,6 +54,7 @@ return [
     'delete_class' => 'Delete Class',
     'class_note' => 'Class Note',
     'add_language' => 'Add Language',
+    'add_coupon' => 'Add Coupon',
     'save_changes' => 'Save Changes',
     'schedule_class' => 'Schedule Class',
     'add_newsletter' => 'Add Newsletter',
@@ -237,4 +238,5 @@ return [
     'style' => 'Style',
     'edit_navbar' => 'Edit Navbar',
     'edit_footer' => 'Edit Footer',
+    'saving' => 'Saving...',
 ];
