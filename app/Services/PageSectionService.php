@@ -304,8 +304,7 @@ class PageSectionService extends MediaService
 
    public function getTopInstructors(array $instructorIds, int $limit = 8)
    {
-      return Instructor::query()
-         ->whereIn('id', $instructorIds)
+      $query = Instructor::query()
          ->with(['user', 'courses' => function ($query) {
             $query->where('status', 'approved');
          }])
@@ -318,10 +317,16 @@ class PageSectionService extends MediaService
                ->whereColumn('instructor_id', 'instructors.id')
                ->where('status', 'approved')
          ])
-         ->where('instructors.status', 'approved')
          ->orderBy('total_enrollments', 'desc')
          ->orderBy('created_at', 'desc')
-         ->limit($limit)
+         ->limit($limit);
+
+      // If no specific instructors configured in the section, fall back to latest approved
+      if (!empty($instructorIds)) {
+         $query->whereIn('id', $instructorIds);
+      }
+
+      return $query
          ->get()
          ->each(function ($instructor) {
             $instructor->average_rating = $instructor->courses->avg('average_rating') ?? 0;

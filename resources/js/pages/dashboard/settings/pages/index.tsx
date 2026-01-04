@@ -53,7 +53,7 @@ const Pages = ({ pages, home, system, translate }: PageSelectProps) => {
                <h1 className="text-2xl font-bold">{settings.page_settings}</h1>
             </div>
 
-            <Card>
+            <Card className="home-pages-card">
                <div className="flex items-center justify-between p-4">
                   <div>
                      <h2 className="text-lg font-medium">{settings.available_home_pages}</h2>
@@ -122,7 +122,7 @@ const Pages = ({ pages, home, system, translate }: PageSelectProps) => {
                   </div>
                </div>
 
-               <Table className="border-border border-y last:border-b-0">
+               <Table className="border-border border-y last:border-b-0 home-pages-table">
                   <TableHeader table={homePagesTable} />
 
                   <TableBody>

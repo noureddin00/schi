@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Resources\PageSectionResource;
+use App\Models\Instructor;
 use App\Services\NotificationService;
 use App\Services\SettingsService;
 use App\Services\StudentService;
@@ -100,6 +101,12 @@ class HandleInertiaRequests extends Middleware
         //     $page->sections = PageSectionResource::collection($page->sections);
         // }
 
+        // Fetch top instructors for homepage
+        $topInstructors = Instructor::with(['user:id,name,photo,email'])
+            ->latest('id')
+            ->limit(8)
+            ->get();
+
         return [
             ...parent::share($request),
             'page' => $page,
@@ -108,6 +115,7 @@ class HandleInertiaRequests extends Middleware
             'customize' => $request->query('customize', false),
             'navbar' => $this->settingsService->getNavbar('navbar_1'),
             'footer' => $this->settingsService->getFooter('footer_1'),
+            'topInstructors' => $topInstructors,
             'notifications' => $user ? $this->notificationService->notifications(['unread' => true]) : [],
             'ziggy' => fn(): array => [
                 ...(new Ziggy)->toArray(),

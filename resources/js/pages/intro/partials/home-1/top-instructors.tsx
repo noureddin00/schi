@@ -12,11 +12,23 @@ import Section from '../section';
 const TopInstructors = () => {
    const { props } = usePage<IntroPageProps>();
    const { page, customize, topInstructors } = props;
+   // Show the latest instructors first (fallback if backend ordering differs)
+   const sortedInstructors = [...topInstructors].sort((a, b) => (b.id || 0) - (a.id || 0));
    const topInstructorsSection = getPageSection(page, 'top_instructors');
    const [api, setApi] = useState<CarouselApi>();
+   const instructorCount = topInstructors?.length || 0;
+
+   const defaultPhoto = '/assets/images/instructor.png';
+
+   const getPhotoUrl = (photo?: string | null) => {
+      if (!photo) return defaultPhoto;
+      if (photo.startsWith('http')) return photo;
+      if (photo.startsWith('/')) return photo;
+      return `/${photo}`;
+   };
 
    return (
-      <Section customize={customize} pageSection={topInstructorsSection} containerClass="py-20">
+      <Section customize={customize} pageSection={topInstructorsSection} containerClass="py-20 instructors-section">
          <div className="mx-auto mb-10 text-center md:max-w-[480px]">
             <p className="text-secondary-foreground mb-1 font-medium">{topInstructorsSection?.title}</p>
             <h2 className="mb-4 text-3xl font-bold sm:text-4xl">{topInstructorsSection?.sub_title}</h2>
@@ -25,7 +37,11 @@ const TopInstructors = () => {
 
          <Carousel setApi={setApi} className="relative" opts={{ align: 'start', loop: true }} plugins={[Autoplay({ delay: 3000 })]}>
             <CarouselContent>
-               {topInstructors.map((instructor) => {
+               {sortedInstructors.map((instructor) => {
+                  const photoSrc = getPhotoUrl(instructor?.user?.photo);
+                  const name = instructor?.user?.name || instructor?.user?.email || 'Instructor';
+                  const designation = instructor?.designation || instructor?.user?.email || '—';
+
                   return (
                      <CarouselItem key={instructor.id} className="basis-full md:basis-1/2 lg:basis-1/4">
                         <Link href={route('instructors.show', instructor.id)}>
@@ -33,13 +49,17 @@ const TopInstructors = () => {
                               <div className="group relative h-[380px] overflow-hidden rounded-2xl">
                                  <img
                                     className="h-full w-full object-cover object-center"
-                                    src={instructor.user.photo || '/assets/images/intro/default/instructors/instructor-1.png'}
-                                    alt=""
+                                    src={photoSrc}
+                                    alt={name}
+                                    onError={(e) => {
+                                       e.currentTarget.onerror = null;
+                                       e.currentTarget.src = defaultPhoto;
+                                    }}
                                  />
 
                                  <div className="from-primary dark:from-primary-foreground absolute bottom-0 left-1/2 flex h-full w-full -translate-x-1/2 flex-col justify-end bg-gradient-to-t p-4 text-center opacity-0 transition-all duration-200 group-hover:opacity-100">
-                                    <p className="mb-1 text-lg font-semibold text-white">{instructor.user.name}</p>
-                                    <p className="text-sm text-white">{instructor.designation}</p>
+                                    <p className="mb-1 text-lg font-semibold text-white">{name}</p>
+                                    <p className="text-sm text-white">{designation}</p>
 
                                     <InstructorSocials
                                        instructor={instructor}
